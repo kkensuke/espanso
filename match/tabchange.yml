@@ -1,0 +1,49 @@
+# Searches all open Chrome windows for a tab with a URL containing "{{url}}".
+# If found, it focuses that tab.
+# If not found, it opens a new tab with "https://{{url}}".
+global_vars:
+  - name: "tabchange"
+    type: echo
+    params:
+      echo: |
+            osascript -e '
+            tell application "Google Chrome"
+                activate
+                set targetURL to "{{url}}"
+                set fullURL to "https://{{url}}"
+                set tabFound to false
+
+                repeat with aWindow in every window
+                    set tabList to every tab of aWindow
+                    repeat with i from 1 to count of tabList
+                        set aTab to item i of tabList
+                        if (URL of aTab contains targetURL) then
+                            set active tab index of aWindow to i
+                            set index of aWindow to 1
+                            set tabFound to true
+                            exit repeat
+                        end if
+                    end repeat
+                    if tabFound then exit repeat
+                end repeat
+
+                if not tabFound then
+                    tell window 1 to make new tab with properties {URL:fullURL}
+                    set index of window 1 to 1
+                end if
+            end tell'
+
+
+# Example usage:
+matches:
+  - trigger: ";example"
+    replace: "{{output}}"
+    vars:
+      - name: "url"
+        type: echo
+        params:
+          echo: example.com
+      - name: output
+        type: shell
+        params:
+          cmd: "{{tabchange}}"

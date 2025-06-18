@@ -1,0 +1,28 @@
+# espanso match file
+# For a complete introduction, visit the official docs at: https://espanso.org/docs/
+
+
+global_vars:
+  - name: global_vars
+    type: echo
+    params:
+      echo: "This is a normal global variable"
+  - name: "clipboard"
+    type: "clipboard"
+  - name: today
+    type: date
+    params:
+      format: "%Y/%m/%d"
+  - name: now
+    type: date
+    params:
+      format: "%Y/%m/%d/%H:%M"
+
+
+matches:
+  - trigger: ";global_vars"
+    replace: "{{global_vars}}"
+  - trigger: ";date"
+    replace: "{{today}}"
+  - trigger: ";now"
+    replace: "{{now}}"

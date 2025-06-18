@@ -1,0 +1,11 @@
+matches:
+
+# --- Quantum State Notation ---
+  - trigger: ";ket"
+    replace: "|ψ⟩"
+  - trigger: ";bra"
+    replace: "⟨ψ|"
+  - trigger: ";inner"
+    replace: "⟨φ|ψ⟩"
+  - trigger: ";expect"
+    replace: "⟨ψ|Â|ψ⟩"

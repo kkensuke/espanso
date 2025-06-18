@@ -1,0 +1,139 @@
+matches:
+# --- Move to a tab if it exists, otherwise open a new tab ---
+  - trigger: ";gai"
+    replace: "{{output}}"
+    vars:
+      - name: "url"
+        type: echo
+        params:
+          echo: aistudio.google.com
+      - name: output
+        type: shell
+        params:
+          cmd: "{{tabchange}}"
+
+  - trigger: ";gpt"
+    replace: "{{output}}"
+    vars:
+      - name: "url"
+        type: echo
+        params:
+          echo: chatgpt.com
+      - name: output
+        type: shell
+        params:
+          cmd: "{{tabchange}}"
+
+  - trigger: ";you"
+    replace: "{{output}}"
+    vars:
+      - name: "url"
+        type: echo
+        params:
+          echo: youtube.com
+      - name: output
+        type: shell
+        params:
+          cmd: "{{tabchange}}"
+
+  - trigger: ";slack"
+    replace: "{{output}}"
+    vars:
+      - name: "url"
+        type: echo
+        params:
+          echo: app.slack.com
+      - name: output
+        type: shell
+        params:
+          cmd: "{{tabchange}}"
+
+  - trigger: ";github"
+    replace: "{{output}}"
+    vars:
+      - name: "url"
+        type: echo
+        params:
+          echo: github.com
+      - name: output
+        type: shell
+        params:
+          cmd: "{{tabchange}}"
+
+  - trigger: ";amazon"
+    replace: "{{output}}"
+    vars:
+      - name: "url"
+        type: echo
+        params:
+          echo: amazon.co.jp
+      - name: output
+        type: shell
+        params:
+          cmd: "{{tabchange}}"
+
+
+# --- always open in new tab ---
+  - trigger: ";ggl"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "open 'https://www.google.com/'"
+
+  - trigger: ";ggs"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "open 'https://www.google.com/search?q={{clipboard}}'"
+
+  - trigger: ";scholar"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "open 'https://scholar.google.com/scholar?q={{clipboard}}'"
+
+  - trigger: ";claude"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "open 'https://claude.ai/'"
+
+  - trigger: ";fast"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "open 'https://fast.com/'"
+
+  - trigger: ";Espanso"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "open 'https://espanso.org/docs/get-started/'"
+
+  - trigger: ";clear"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "open -a 'Google\ Chrome' 'chrome://settings/clearBrowserData'"
+
+  - trigger: ";extension"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "open -a 'Google\ Chrome' 'chrome://extensions/'"

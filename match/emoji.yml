@@ -1,0 +1,90 @@
+matches:
+# --- Special Keyboard Symbols ---
+  - trigger: ";ctrl"
+    replace: "⌃"
+  - trigger: ";cmd"
+    replace: "⌘"
+  - trigger: ";shift"
+    replace: "⇧"
+  - trigger: ";opt"
+    replace: "⌥"
+  - trigger: ";kall"
+    replace: "⌃⌥⇧⌘"
+
+# --- emoji ---
+  - triggers: [";good",";emoji"]
+    replace: "👍"
+  - triggers: [";good",";emoji"]
+    replace: "✅"
+  - triggers: [";bad",";emoji"]
+    replace: "👎"
+  - triggers: [";bad",";emoji"]
+    replace: "❌"
+  - triggers: [";leftarrow",";emoji"]
+    replace: "⬅️"
+  - triggers: [";downarrow",";emoji"]
+    replace: "⬇️"
+  - triggers: [";uparrow",";emoji"]
+    replace: "⬆️"
+  - triggers: [";rightarrow",";emoji"]
+    replace: "➡️"
+  - triggers: [";zh",";emoji"]
+    replace: "←"
+  - triggers: [";zj",";emoji"]
+    replace: "↓"
+  - triggers: [";zk",";emoji"]
+    replace: "↑"
+  - triggers: [";zl",";emoji"]
+    replace: "→"
+  - triggers: [";pc",";emoji"]
+    replace: "🧑‍💻"
+  - triggers: [";pc",";emoji"]
+    replace: "💻"
+  - triggers: [";bow",";emoji"]
+    replace: "🙇"
+  - triggers: [";bow",";emoji"]
+    replace: "🙇‍♂️"
+  - triggers: [";smile",";emoji"]
+    replace: "😊"
+  - triggers: [";sw",";emoji"]
+    replace: "😅"
+  - triggers: [";sw",";emoji"]
+    replace: "💦"
+  - triggers: [";lol",";emoji"]
+    replace: "😂"
+  - triggers: [";tear",";emoji"]
+    replace: "🥲"
+  - triggers: [";die",";emoji"]
+    replace: "😇"
+  - triggers: [";glass",";emoji"]
+    replace: "😎"
+  - triggers: [";dbt",";emoji"]
+    replace: "🧐"
+  - triggers: [";think",";emoji"]
+    replace: "🤔"
+  - triggers: [";cry",";emoji"]
+    replace: "😭"
+  - triggers: [";hexp",";emoji"]
+    replace: "🤯"
+  - triggers: [";sleep",";emoji"]
+    replace: "😪"
+  - triggers: [";sleep",";emoji"]
+    replace: "😴"
+  - triggers: [";sheep",";emoji"]
+    replace: "🐑"
+  - triggers: [";ocha",";emoji"]
+    replace: "🍵"
+  - triggers: [";facepalm", ";fp", ";emoji"]
+    replace: "🤦"
+  - triggers: [";shrug", ";emoji"]
+    replace: "🤷"
+  - triggers: [";tada", ";party", ";emoji"]
+    replace: "🎉"
+  - triggers: [";eyes", ";emoji"]
+    replace: "👀"
+  - triggers: [";pray", ";emoji"]
+    replace: "🙏"
+  - triggers: [";fire", ";emoji"]
+    replace: "🔥"
+  - triggers: [";clap", ";emoji"]
+    replace: "👏"

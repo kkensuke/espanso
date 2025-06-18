@@ -1,0 +1,118 @@
+matches:
+# --- Open terminal, files, or directories ---
+  - trigger: ";tml"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "open -a Terminal.app"
+
+  - trigger: ";dotfile"
+    replace: "{{output}}\n"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "open -a Terminal.app; echo 'code ~/github/dotfiles/zsh/'"
+          # following commands deletes some letters from the file when you open it
+          # cmd: "code ~/github/dotfiles/zsh/"
+
+  - trigger: ";notion"
+    replace: "{{output}}\n"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "open -a Terminal.app; echo 'code ~/github/notion/'"
+
+  - trigger: ";espanso"
+    replace: "{{output}}\n"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "open -a Terminal.app; echo 'code ~/github/dotfiles/espanso/'"
+
+  - trigger: ";blog"
+    replace: "{{output}}\n"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "open -a Terminal.app; echo 'code ~/website/nextjs-blog-tutorial/'"
+
+  - trigger: ";quantum"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "open ~/github/qc/"
+
+# --- Select and open a directory in github/ ---
+  - trigger: ";cdgh"
+    replace: "{{output}}\n"
+    vars:
+      - name: available
+        type: shell
+        params:
+          cmd: "ls ~/github/"
+      - name: "form"
+        type: form
+        params:
+          layout: "GitHub Repo Name : [[repo_name]]"
+          fields:
+            repo_name:
+              type: choice
+              values: "{{available}}"
+      - name: output
+        type: shell
+        params:
+          cmd: "open -a Terminal.app; echo 'code ~/github/{{form.repo_name}}'"
+
+# --- File Creation ---
+  - trigger: ";newfile"
+    replace: "{{output}}"
+    vars:
+      - name: uuid
+        type: shell
+        params:
+          cmd: "uuidgen"
+      - name: output
+        type: shell
+        params:
+          cmd: "cd ~/Desktop; touch {{uuid}}.md; open -a CotEditor.app {{uuid}}.md"
+
+  - regex: ";url(?P<name>.*);" # input: ;urlname; → output: name.url
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "cd ~/Desktop; echo '[InternetShortcut]\nURL={{clipboard}}' > {{name}}.url"
+
+  - trigger: ";memo"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "echo '- {{now}}: {{clipboard}}' >> ~/Desktop/memo.md"
+
+# --- Turn webpage into markdown from url ---
+  - trigger: ";tomd"
+    replace: |
+            - Webpage to Markdown Conversion by https://urltomarkdown.herokuapp.com/
+            - Source URL: {{clipboard}}
+            - Conversion Timestamp: {{now}}
+            
+            ===================================================
+            
+            {{output}}
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: |
+            curl "https://urltomarkdown.herokuapp.com/?url={{clipboard}}"

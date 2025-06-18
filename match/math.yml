@@ -1,0 +1,204 @@
+matches:
+# --- Greek Letters (Lowercase) ---
+  - trigger: ";alpha"
+    replace: "α"
+  - trigger: ";beta"
+    replace: "β"
+  - trigger: ";gamma"
+    replace: "γ"
+  - trigger: ";delta"
+    replace: "δ"
+  - trigger: ";epsilon"
+    replace: "ε"
+  - trigger: ";zeta"
+    replace: "ζ"
+  - trigger: ";eta"
+    replace: "η"
+  - trigger: ";theta"
+    replace: "θ"
+  - trigger: ";iota"
+    replace: "ι"
+  - trigger: ";kappa"
+    replace: "κ"
+  - trigger: ";lambda"
+    replace: "λ"
+  - trigger: ";mu"
+    replace: "μ"
+  - trigger: ";nu"
+    replace: "ν"
+  - trigger: ";xi"
+    replace: "ξ"
+  - trigger: ";omicron"
+    replace: "ο"
+  - trigger: ";pi"
+    replace: "π"
+  - trigger: ";rho"
+    replace: "ρ"
+  - trigger: ";sigma"
+    replace: "σ"
+  - trigger: ";varsigma"
+    replace: "ς"
+  - trigger: ";tau"
+    replace: "τ"
+  - trigger: ";upsilon"
+    replace: "υ"
+  - trigger: ";phi"
+    replace: "φ"
+  - trigger: ";varphi"
+    replace: "ϕ"
+  - trigger: ";chi"
+    replace: "χ"
+  - trigger: ";psi"
+    replace: "ψ"
+  - trigger: ";omega"
+    replace: "ω"
+
+# --- Greek Letters (Uppercase) ---
+  - trigger: ";Gamma"
+    replace: "Γ"
+  - trigger: ";Delta"
+    replace: "Δ"
+  - trigger: ";Lambda"
+    replace: "Λ"
+  - trigger: ";Xi"
+    replace: "Ξ"
+  - trigger: ";Pi"
+    replace: "Π"
+  - trigger: ";Sigma"
+    replace: "Σ"
+  - trigger: ";Phi"
+    replace: "Φ"
+  - trigger: ";Psi"
+    replace: "Ψ"
+  - trigger: ";Omega"
+    replace: "Ω"
+
+# --- Math Operators & Relations ---
+  - trigger: ";squared"
+    replace: "²"
+  - trigger: ";sqrt"
+    replace: "√"
+  - trigger: ";cubed"
+    replace: "³"
+  - trigger: ";pm" # Plus-minus
+    replace: "±"
+  - trigger: ";cdot" # Centered dot
+    replace: "·"
+  - trigger: ";times" # Multiplication cross
+    replace: "×"
+  - trigger: ";div" # Division sign
+    replace: "÷"
+  - trigger: ";neq" # Not equal
+    replace: "≠"
+  - trigger: ";leq" # Less than or equal to
+    replace: "≤"
+  - trigger: ";geq" # Greater than or equal to
+    replace: "≥"
+  - trigger: ";lll" # Much less than
+    replace: "≪"
+  - trigger: ";ggg" # Much greater than
+    replace: "≫"
+  - trigger: ";approx" # Approximately equal
+    replace: "≈"
+  - trigger: ";equiv" # Equivalent to
+    replace: "≡"
+  - trigger: ";prop" # Proportional to
+    replace: "∝"
+
+# --- Set Theory ---
+  - trigger: ";elem" # Element of
+    replace: "∈"
+  - trigger: ";nelem" # Contains as element (reversed 'in')
+    replace: "∋"
+  - trigger: ";notin" # Not an element of
+    replace: "∉"
+  - trigger: ";subset" # Subset of
+    replace: "⊂"
+  - trigger: ";supset" # Superset of
+    replace: "⊃"
+  - trigger: ";cup" # Union
+    replace: "∪"
+  - trigger: ";cap" # Intersection
+    replace: "∩"
+  - trigger: ";empty" # Empty set
+    replace: "∅"
+  - trigger: ";sN" # Natural numbers (blackboard bold)
+    replace: "ℕ"
+  - trigger: ";sZ" # Integers (blackboard bold)
+    replace: "ℤ"
+  - trigger: ";sQ" # Rational numbers (blackboard bold)
+    replace: "ℚ"
+  - trigger: ";sR" # Real numbers (blackboard bold)
+    replace: "ℝ"
+  - trigger: ";sC" # Complex numbers (blackboard bold)
+    replace: "ℂ"
+
+# --- Calculus & Analysis ---
+  - trigger: ";partial" # Partial derivative
+    replace: "∂"
+  - trigger: ";nabla" # Nabla / Del operator
+    replace: "∇"
+  - trigger: ";int" # Integral sign
+    replace: "∫"
+  - trigger: ";prod" # Product symbol
+    replace: "∏"
+  - trigger: ";inf" # Infinity
+    replace: "∞"
+  - trigger: ";rightarrow"
+    replace: "→"
+  - trigger: ";mapsto" # Maps to arrow
+    replace: "↦"
+
+# --- Logic ---
+  - trigger: ";forall" # For all
+    replace: "∀"
+  - trigger: ";exists" # There exists
+    replace: "∃"
+  - trigger: ";implies" # Implies (right arrow)
+    replace: "⇒"
+  - trigger: ";therefore"
+    replace: "∴"
+  - trigger: ";because" # Because
+    replace: "∵"
+
+# --- Other Useful Symbols ---
+  - trigger: ";deg" # Degree symbol
+    replace: "°"
+  - trigger: ";ldots" # Horizontal ellipsis (...)
+    replace: "…"
+  - trigger: ";cdots" # Centered horizontal ellipsis
+    replace: "⋯"
+
+# --- Basic Calculations (Regex) ---
+# Multiplication: 7*8 => ;m7,8;
+  - regex: ";m(?P<num1>.*),(?P<num2>.*);"
+    replace: "{{result}}"
+    vars:
+      - name: result
+        type: shell
+        params:
+          cmd: "expr $ESPANSO_NUM1 '*' $ESPANSO_NUM2"
+# Division: 7/8 => ;d7,8;
+  - regex: ";d(?P<num1>.*),(?P<num2>.*);"
+    replace: "{{result}}"
+    vars:
+      - name: result
+        type: shell
+        params:
+          cmd: "expr $ESPANSO_NUM1 / $ESPANSO_NUM2"
+# Power: 7^8 => ;p7,8;
+  - regex: ";p(?P<num1>.*),(?P<num2>.*);"
+    replace: "{{result}}"
+    vars:
+      - name: result
+        type: shell
+        params:
+          cmd: "echo $[$ESPANSO_NUM1 ** $ESPANSO_NUM2]"
+# Square Root: √7 => ;s7;
+  - regex: ";s(?P<num>.*);"
+    replace: "{{result}}"
+    vars:
+      - name: result
+        type: shell
+        params:
+          cmd: "echo $[$ESPANSO_NUM ** 0.5]"

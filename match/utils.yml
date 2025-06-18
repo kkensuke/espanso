@@ -1,0 +1,104 @@
+matches:
+  - trigger: ";local"
+    replace: "localhost:3000/"
+
+# --- Copy Finder Path ---
+  - trigger: ";clippath"
+    replace: "{{output}}"
+    vars:
+      - name: finder_path
+        type: shell
+        params:
+          cmd: "osascript -e 'tell application \"Finder\" to get the POSIX path of (selection as alias)'"
+      - name: output
+        type: shell
+        params:
+          cmd: "echo '{{finder_path}}' | sed 's/ /\\\\ /g' | tr -d '\n' | pbcopy; pbpaste"
+
+# --- Make repo summary ---
+  - trigger: ";repotext"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "python3 ~/github/tools/repo_to_text/repo_to_text_CJK.py -o ~/Desktop/output.txt {{clipboard}}"
+
+# --- Capslock no delay ---
+  - trigger: ";nodl"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "hidutil property --set '{\"CapsLockDelayOverride\":10}' > /dev/null && echo 'Done!'"
+
+# --- Speak Clipboard Content ---
+  - trigger: ";speak"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "osascript -e 'say \"{{clipboard}}\"'"
+
+# ——— Shorten Clipboard URL ———
+  - trigger: ";short"
+    replace: "{{short_url}}"
+    vars:
+      - name: short_url
+        type: shell
+        params:
+          cmd: "curl -s 'https://tinyurl.com/api-create.php?url={{clipboard}}'"
+
+# -- definition lookup ---
+  - trigger: ";definition"
+    replace: "{{definition}}"
+    vars:
+      - name: definition
+        type: shell
+        params:
+          cmd: >
+            curl -s "https://api.dictionaryapi.dev/api/v2/entries/en/{{clipboard}}" |
+            jq -r '.[0] | "\(.word): \n" + (.meanings[0].definitions | map("- " + .definition) | join("\n"))'
+
+# --- Currency Conversion ---
+  - trigger: ";currency"
+    replace: "{{conversion}}"
+    vars:
+      - name: form
+        type: form
+        params:
+          layout: |
+                  Amount: [[amount]]
+                  From: [[from]]
+                  To: [[to]]
+          fields:
+            from:
+              type: choice
+              values:
+                - "USD"
+                - "JPY"
+                - "CHF"
+                - "EUR" 
+                - "GBP"
+                - "CNY"
+                - "KRW"
+                - "CAD"
+                - "AUD"
+            to:
+              type: choice
+              values:
+                - "JPY"
+                - "USD"
+                - "EUR"
+                - "CHF"
+                - "GBP" 
+                - "CNY"
+                - "KRW"
+                - "CAD"
+                - "AUD"
+      - name: conversion
+        type: shell
+        params:
+          cmd: "curl -s 'https://api.exchangerate-api.com/v4/latest/{{form.from}}' | jq -r '.rates.{{form.to}} * {{form.amount}} | round * 100 / 100' | xargs printf '{{form.amount}} {{form.from}} = %.2f {{form.to}}\\n'"

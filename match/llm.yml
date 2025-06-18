@@ -1,0 +1,150 @@
+matches:
+  - trigger: ";efix"
+    replace: "Please fix the following English text: "
+  - trigger: ";jfix"
+    replace: "以下の文章を校正してください： "
+
+  - trigger: ";eprf"
+    replace: "Please review the following guidelines and then proofread the sentence provided at the end:\n\n{{english_guideline}}\n\nSentence to proofread:"
+  - trigger: ";jprf"
+    replace: "次のガイドラインを確認し、最後に与えられる文章を校正してください：\n\n{{japanese_guideline}}\n\n校正する文章："
+
+  - trigger: ";summarize"
+    replace: "Please summarize the following text or attached document in a concise manner: "
+  - trigger: ";how"
+    replace: "Please explain how to "
+  - trigger: ";mail"
+    replace: "Please write an email about the following topic politely: "
+  - trigger: ";jmail"
+    replace: "以下の内容のメールを丁寧に書いてください: "
+  - trigger: ";extract"
+    replace: "Extract the essence of the contents in markdown format with hyphen (-) bullet list. Use '##' for each header and 2 blank lines before headers and no blank line after headers: "
+  - trigger: ";expeq"
+    replace: "Please explain the following concept with relevant equations: "
+  - trigger: ";expc"
+    replace: "Explain what the following code does in detail: $|$"
+  - trigger: ";refactor"
+    replace: "Please refactor the following code to improve readability, performance, and follow best practices: "
+  - trigger: ";pros"
+    replace: "What are the pros and cons of "
+  - trigger: ";plot"
+    replace: "Generate a Python script to plot the following function or data: $|$"
+  - trigger: ";compare"
+    replace: "Compare and contrast the following theories or models: $|$"
+
+  - trigger: ";ejt"
+    replace: "Please translate the following text into Japanese: "
+  - trigger: ";jet"
+    replace: "以下のテキストを英語に翻訳してください: "
+
+# --- Call Gemini with general instructions ---
+  - trigger: ";gemini"
+    replace: "{{output}}\n"
+    vars:
+      - name: "form"
+        type: form
+        params:
+          layout: "Instruction:\n[[instruction]]"
+      - name: output
+        type: shell
+        params:
+          cmd: >
+            curl -s "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={{GEMINI_API_KEY}}" \
+              -H 'Content-Type: application/json' \
+              -X POST \
+              -d '{
+                    "contents": [{
+                      "parts": [{"text": "{{form.instruction}}: {{clipboard}}"}]
+                    }]
+                  }' \
+            | jq -r '.candidates[0].content.parts[0].text'
+
+# ——— Translate Clipboard → Japanese (via Google Gemini) ———
+  - trigger: ";transja"
+    replace: "{{translation}}"
+    vars:
+      - name: translation
+        type: shell
+        params:
+          cmd: >
+            curl -s "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={{GEMINI_API_KEY}}" \
+              -H 'Content-Type: application/json' \
+              -X POST \
+              -d '{
+                    "contents": [{
+                      "parts": [{"text": "Translate the following to Japanese. Provide ONLY the translated text, no explanations or markdown: {{clipboard}}"}]
+                    }]
+                  }' \
+            | jq -r '.candidates[0].content.parts[0].text | split("\n")[0]'
+
+# ——— Translate Clipboard → English (via Google Gemini) ———
+  - trigger: ";transen"
+    replace: "{{translation}}"
+    vars:
+      - name: translation
+        type: shell
+        params:
+          cmd: >
+            curl -s "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={{GEMINI_API_KEY}}" \
+              -H 'Content-Type: application/json' \
+              -X POST \
+              -d '{
+                    "contents": [{
+                      "parts": [{"text": "Translate the following to English. Provide ONLY the translated text, no explanations or markdown: {{clipboard}}"}]
+                    }]
+                  }' \
+            | jq -r '.candidates[0].content.parts[0].text | split("\n")[0]'
+
+# ——— Grammar Check Clipboard (via Google Gemini) ———
+  - trigger: ";grammar"
+    replace: "{{corrected}}"
+    vars:
+      - name: corrected
+        type: shell
+        params:
+          cmd: >
+            curl -s "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={{GEMINI_API_KEY}}" \
+              -H 'Content-Type: application/json' \
+              -X POST \
+              -d '{
+                    "contents": [{
+                      "parts": [{"text": "Correct the grammar and spelling of the following text. Respond in the SAME LANGUAGE as the original text.　Provide ONLY the corrected text, no explanations: {{clipboard}}"}]
+                    }]
+                  }' \
+            | jq -r '.candidates[0].content.parts[0].text'
+
+# ——— Bullet Point List (via Google Gemini) ———
+  - trigger: ";bullet"
+    replace: "{{bullets}}"
+    vars:
+      - name: bullets
+        type: shell
+        params:
+          cmd: >
+            curl -s "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={{GEMINI_API_KEY}}" \
+              -H 'Content-Type: application/json' \
+              -X POST \
+              -d '{
+                    "contents": [{
+                      "parts": [{"text": "Convert the following text into a clear, concise bullet point list. Respond in the SAME LANGUAGE as the original text.: {{clipboard}}"}]
+                    }]
+                  }' \
+            | jq -r '.candidates[0].content.parts[0].text'
+
+# --- Rephrase Clipboard (via Google Gemini) ---
+  - trigger: ";rephrase"
+    replace: "{{alternatives}}"
+    vars:
+      - name: alternatives
+        type: shell
+        params:
+          cmd: >
+            curl -s "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={{GEMINI_API_KEY}}" \
+              -H 'Content-Type: application/json' \
+              -X POST \
+              -d '{
+                    "contents": [{
+                      "parts": [{"text": "Rephrase the following scientific sentence in three different ways. The first should prioritize clarity and simplicity. The second should be more formal and concise for a publication. The third should be impactful for an abstract or introduction. Provide the results as a bulleted list.\n\nSentence: {{clipboard}}"}]
+                    }]
+                  }' \
+            | jq -r '.candidates[0].content.parts[0].text'

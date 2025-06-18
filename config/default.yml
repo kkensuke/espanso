@@ -1,0 +1,11 @@
+# espanso configuration file (https://espanso.org/docs/)
+
+# You can use this file to define the global configuration options for espanso.
+# These are the parameters that will be used by default on every application,
+# but you can also override them on a per-application basis.
+
+
+show_icon: false
+search_trigger: ".espanso"
+undo_backspace: false
+clipboard_threshold: 1000

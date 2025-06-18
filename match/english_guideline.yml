@@ -1,0 +1,57 @@
+global_vars:
+  - name: "english_guideline"
+    type: echo
+    params:
+      echo: |
+          ```
+          # Checklist for Academic Papers (Science & Engineering Focus): English Expression and Structure Guide
+          ## Introduction
+          This checklist is designed to help you, the author, review and improve the English expression, structure, and clarity of your academic paper, particularly within science and engineering fields. Use this guide after drafting your manuscript to objectively assess your writing and enhance its quality. While not every point applies to every paper, use it as a general guideline. Remember, **always prioritize and adhere to the specific "Instructions for Authors" or "Author Guidelines" provided by your target journal or conference.**
+
+          ## I. Sentence-Level Clarity & Accuracy
+          - [ ] **1. Simple Language**: Apart from essential technical terms, is the language clear, modern, and straightforward? Are potentially unfamiliar technical terms defined or explained upon first use where necessary?
+          - [ ] **2. Verb-Oriented Phrasing**: Have you avoided unnecessary nominalizations (turning verbs into nouns, e.g., "perform an investigation of" instead of "investigate," "make a decision" instead of "decide")? Does the writing favor strong verbs?
+          - [ ] **3. Specific Verbs**: Have you used precise and descriptive verbs appropriate for the context (e.g., "conduct," "obtain," "demonstrate," "analyze," "examine") instead of vague ones (e.g., "do," "get," "show," "look at")?
+          - [ ] **4. Redundancy Elimination**: Have you removed redundant words or phrases (e.g., "basic fundamentals" "absolutely essential")? Are phrases like "in order to" or "due to the fact that" used sparingly and replaced with simpler alternatives ("to," "because") where possible?
+
+          ## II. Consistency in Terminology & Expression
+          - [ ] **5. Clear Pronoun Reference**: Is the referent for each pronoun ("this," "that," "it," "they," etc.) clear and unambiguous? Could any pronoun refer to more than one thing, causing confusion?
+          - [ ] **6. Consistent Terminology**: Are the same terms used consistently throughout the entire manuscript (Abstract, main text, figures, tables, captions) to refer to the same concepts, equipment, variables, or processes? Are abbreviations defined at first use and then used consistently?
+
+          ## III. Grammar & Syntax Accuracy
+          - [ ] **7. Active vs. Passive Voice & Verb Tense**: Is the active voice used primarily for clarity (who did what)? Is passive voice used appropriately (e.g., methods) or when the object of the action is more important than the actor? **Are verb tenses consistent and appropriate for each section** (e.g., past tense for methods/results, present tense for general truths/conclusions)? **Is subject-verb agreement correct throughout**, especially with complex subjects or intervening phrases (e.g., "The data show..." not "The data shows...")?
+          - [ ] **8. Modifier Placement & Clarity**: Are adjectives, adverbs (including "only," "also"), and modifying phrases placed correctly next to the words they modify? Is there any ambiguity (misplaced/dangling modifiers)? (e.g., "We observed the sample using a microscope that was..." vs. "Using a microscope, we observed the sample that was...")
+          - [ ] **9. Sentence Conciseness**: Are sentences excessively long or complex, making them difficult to read?. Are there unnecessary prepositional phrases or overly complicated subordinate clauses? Could complex sentences be split into shorter, clearer ones?
+          - [ ] **10. Parallel Structure**: Are items in lists or joined by conjunctions ("and", "or", "but") grammatically parallel (e.g., noun-noun, verb-ing - verb-ing, clause-clause)? (e.g., "...involved sample preparation, data acquisition, and analyzing the results" should be "...involved sample preparation, data acquisition, and result analysis" or "...involved preparing samples, acquiring data, and analyzing results."). Are items Mutually Exclusive and Collectively Exhaustive (MECE) as much as possible?
+          - [ ] **11. Articles, Plurals, & Prepositions**: **Are articles (a, an, the) used correctly** based on specificity (first mention vs. subsequent mentions) and countability? **Are plural forms correct**, including irregular plurals (e.g., data, analyses, nuclei, phenomena) and uncountable nouns (e.g., research, information, equipment, software - avoid "researches," "informations," "equipments")? **Are prepositions (in, on, at, of, for, with, to, by, etc.) used accurately**, especially in common collocations (e.g., "results *in*," "compared *with/to*," "responsible *for*," "different *from*")?
+          - [ ] **12. Punctuation**: **Is punctuation (commas, periods, semicolons, colons, hyphens, apostrophes, quotation marks) used correctly** according to standard English rules? Are common errors like comma splices (joining two independent clauses with only a comma) avoided? Is punctuation within lists, equations, and parenthetical elements consistent? Is the use of hyphens correct in compound modifiers before a noun (e.g., "state-of-the-art method" vs. "the method is state of the art")?
+          - [ ] **13. Word Choice**: **Are words chosen precisely?** Are easily confused words (e.g., affect/effect, principal/principle, complement/compliment, ensure/insure/assure, its/it's, than/then, which/that in restrictive/non-restrictive clauses) used correctly?
+
+          ## IV. Clarity of Explanation & Precise Referencing
+          - [ ] **14. Clarifying Phrases**: Are phrases used for summary or rephrasing ("In other words...", "That is...") employed effectively to aid understanding without being redundant?
+          - [ ] **15. Avoiding Circular Definitions**: When explaining fundamental concepts or terms, does the explanation go beyond simply repeating the term in the definition (e.g., not just "Quantum mechanics is a theory that describes quantum systems.")? Does it explain the essence, importance, or relationship to other concepts?
+          - [ ] **16. Effective Use of Visuals & Captions**: Do figures and tables effectively supplement the text and enhance reader understanding? Does each figure and table have a clear, concise, and informative caption that includes a number, title, necessary descriptions, legend explanations, and source information if applicable? Can the visual be understood relatively independently with its caption?
+          - [ ] **17. Precise Referencing**: When referring to other parts of the manuscript (figures, tables, sections, equations, references), are specific identifiers used (e.g., "as shown in Fig. 3," "according to Table 2," "details in Section 2.1," "using Eq. (4)," "as reported by [5]" or "as reported by Smith et al. [5]") instead of vague terms ("above," "below," "previously mentioned")? Are all reference numbers correct?
+
+          ## V. Paragraph Structure & Logical Flow
+          - [ ] **18. Topic Sentences**: Does each paragraph begin with a clear topic sentence that introduces the main point or subject of that paragraph?
+          - [ ] **19. Paragraph Focus (Unity)**: Is each paragraph focused on a single main idea or topic? Are paragraphs overly long (consider breaking up if much longer than 5-7 sentences or covering multiple distinct points) or too short (could they be combined or developed further)?
+          - [ ] **20. Paragraph Role & Transitions**: Is the role of each paragraph clear within the overall argument (e.g., providing background, presenting methods, describing results, interpreting findings, linking ideas)? Are transition words and phrases ("However," "Therefore," "In addition," "Furthermore," "Consequently," "Next," etc.) used effectively to signal logical connections between sentences and paragraphs, ensuring smooth flow?
+
+          ## VI. Overall Document Structure & Requirements
+          - [ ] **21. Standard Structure (e.g., IMRaD)**: Does the manuscript follow the standard structure for your field and the target journal (e.g., Introduction, Methods, Results, and Discussion - IMRaD)? Does each section contain the expected information (e.g., Introduction: background, gap, purpose/hypothesis; Methods: sufficient detail for reproducibility; Results: objective findings; Discussion: interpretation, comparison, significance, limitations)?
+          - [ ] **22. Logical Argument Flow**: Is there a clear and logical progression of ideas from the introduction to the conclusion? Is the relationship between claims and supporting evidence (data, citations) clear? Does the argument flow coherently?
+          - [ ] **23. Clarity of Key Points**: Are the main research question/objective, key findings, and conclusions stated clearly and consistently in the Abstract, Introduction (usually at the end), and Conclusion?
+
+          ## VII. References & Citations
+          - [ ] **24. Consistent Citation Style**: Does the citation style used in the text (in-text citations) and the reference list strictly and consistently adhere to the format required by the target journal (e.g., APA, MLA, Vancouver, Numbered)?
+          - [ ] **25. Comprehensive and Accurate Citations**: Is every source mentioned or relied upon in the text properly cited? Does every entry in the reference list correspond to a citation in the text?
+          - [ ] **26. Reference List Accuracy**: Is every entry in the reference list complete and accurate according to the required style (check author names, year, titles, journal/book titles, volume/issue/pages, DOIs, etc.)? Are there any typos or missing information?
+
+          ## VIII. Using This Checklist
+          - Understand the Principles: Be mindful of *why* each point matters (for reader understanding, credibility, reproducibility, etc.).
+          - Maintain Objectivity: Step back from your writing. Read it aloud or after a break to gain a fresh perspective, simulating a reader's experience.
+          - Implement Specific Revisions: When you identify an issue using the checklist, think about concrete ways to fix it and apply the changes.
+          - Balance Competing Goals: Sometimes guidelines might seem contradictory (e.g., being concise vs. being thorough). Use your judgment to find the best balance for clarity and impact in the specific context.
+          - Prioritize Journal Guidelines: This checklist is a general tool. Always consult and strictly follow the specific "Instructions for Authors" provided by the journal or conference you are submitting to. These guidelines supersede any general advice.
+          ```

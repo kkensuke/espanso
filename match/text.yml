@@ -1,0 +1,83 @@
+matches:
+# --- Japanese Greetings ---
+  - trigger: ";osewa"
+    replace: "お世話になっております。"
+  - trigger: ";ariga"
+    replace: "ありがとうございます。"
+  - trigger: ";yoro"
+    replace: "よろしくお願いいたします。"
+  - trigger: ";sama"
+    replace: "お疲れ様です。"
+
+# --- Placeholder Text ---
+  - trigger: ";lorem"
+    replace: "Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Donec sed odio operae, eu vulputate felis rhoncus. Salutantibus vitae elit libero, a pharetra augue. Nihil hic munitissimus habendi senatus locus, nihil horum? A communi observantia non est recedendum."
+
+# --- Remove Spaces ---
+  - trigger: ";nospace"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "echo {{clipboard}} | tr -d ' 　'"
+          # cmd: "echo {{clipboard}} | sed 's/[ 　]//g'"
+
+# --- Character Count ---
+  - trigger: ";chars"
+    replace: "{{count}} characters"
+    vars:
+      - name: count
+        type: shell
+        params:
+          cmd: "echo -n {{clipboard}} | wc -m | tr -d '[:space:]'"
+
+# --- Word Count ---
+  - trigger: ";words"
+    replace: "{{count}} words"
+    vars:
+      - name: count
+        type: shell
+        params:
+          cmd: "echo -n {{clipboard}} | wc -w | tr -d '[:space:]'"
+
+# --- Text Case Style Converter (Form) ---
+  - trigger: ";case"
+    replace: "{{output}}"
+    vars:
+      - name: form
+        type: form
+        params:
+          layout: "Convert clipboard to: [[style]]"
+          fields:
+            style:
+              type: choice
+              values: ["UPPERCASE", "lowercase", "PascalCase", "camelCase", "Title Case", "kebab-case", "snake_case"]
+      - name: output
+        type: shell
+        params:
+          cmd: |
+            text="{{clipboard}}"
+            case "{{form.style}}" in
+              "UPPERCASE")
+                echo "$text" | tr '[:lower:]' '[:upper:]'
+                ;;
+              "lowercase")
+                echo "$text" | tr '[:upper:]' '[:lower:]'
+                ;;
+              "PascalCase")
+                echo "$text" | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) tolower(substr($i,2));}1' | tr -d ' '
+                ;;
+              "camelCase")
+                echo "$text" | awk '{out=tolower($1); for(i=2;i<=NF;i++){out=out toupper(substr($i,1,1)) tolower(substr($i,2))}; print out}'
+                ;;
+              "Title Case")
+                echo "$text" | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) tolower(substr($i,2));}1'
+                ;;
+              "kebab-case")
+                echo "$text" | sed -E 's/[^a-zA-Z0-9 ]+//g' | tr '[:upper:]' '[:lower:]' | tr -s ' ' '-'
+                ;;
+              "snake_case")
+                echo "$text" | sed -E 's/[^a-zA-Z0-9 ]+//g' | tr '[:upper:]' '[:lower:]' | tr -s ' ' '_'
+                ;;
+            esac

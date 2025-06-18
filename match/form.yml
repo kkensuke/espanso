@@ -1,0 +1,86 @@
+# =========================================
+#  Forms
+# =========================================
+matches:
+  - trigger: ";form1"
+    form: "Hey [[name]], how are you?"
+
+# The above is equivalent to the following
+  - trigger: ";form2"
+    replace: "Hey {{form.name}}, how are you?"
+    vars:
+      - name: "form"
+        type: form
+        params:
+          layout: "Hey [[name]], how are you?"
+
+  - trigger: ";form"
+    form: |
+      Hey [[name]],
+      Happy Birthday!
+      [[text]]
+    form_fields:
+      text:
+        multiline: true
+
+  - trigger: ";todo"
+    replace: "Task: {{form1.task}}, Due Date: {{form1.day}} {{form1.time}}"
+    vars:
+      - name: "day0"
+        type: date
+        params:
+          format: "%Y/%m/%d"
+      - name: "day1"
+        type: shell
+        params:
+          cmd: "date -v+1d '+%Y/%m/%d'"
+      - name: "day2"
+        type: shell
+        params:
+          cmd: "date -v+2d '+%Y/%m/%d'"
+      - name: "day3"
+        type: shell
+        params:
+          cmd: "date -v+3d '+%Y/%m/%d'"
+      - name: "day4"
+        type: shell
+        params:
+          cmd: "date -v+4d '+%Y/%m/%d'"
+      - name: "day5"
+        type: shell
+        params:
+          cmd: "date -v+5d '+%Y/%m/%d'"
+      - name: "day6"
+        type: shell
+        params:
+          cmd: "date -v+6d '+%Y/%m/%d'"
+      - name: "form1"
+        type: form
+        params:
+          layout: "Task: [[task]], Due Date: [[day]] [[time]]"
+          fields:
+            day:
+              type: choice
+              values: |
+                      {{day0}}
+                      {{day1}}
+                      {{day2}}
+                      {{day3}}
+                      {{day4}}
+                      {{day5}}
+                      {{day6}}
+            time:
+              type: choice
+              values:
+                - "9:00"
+                - "10:00"
+                - "11:00"
+                - "12:00"
+                - "13:00"
+                - "14:00"
+                - "15:00"
+                - "16:00"
+                - "17:00"
+                - "18:00"
+                - "19:00"
+                - "20:00"

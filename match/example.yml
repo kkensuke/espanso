@@ -1,0 +1,68 @@
+matches:
+# --- Shell Execution ---
+  - trigger: ";shell"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "echo 'Hello from your shell'"
+
+# ——— Execute arbitrary shell command ———
+  # - regex: ";\\((?P<command>.*)\\)"
+  #   replace: "{{result}}"
+  #   vars:
+  #     - name: result
+  #       type: shell
+  #       params:
+  #         cmd: "eval $ESPANSO_COMMAND"
+
+# ——— Get IP Address ———
+  - trigger: ";ip"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "curl -s 'https://api.ipify.org'"
+
+# ——— Generate Random Number ———
+  - trigger: ";dice"
+    replace: "{{roll}}"
+    vars:
+      - name: roll
+        type: shell
+        params:
+          cmd: "shuf -i 1-6 -n 1"
+
+# ——— Generate UUID ———
+  - trigger: ";uuid"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "uuidgen"
+
+# ——— Generate Password ———
+  - trigger: ";genpw"
+    replace: "{{output}}"
+    vars:
+      - name: length
+        type: echo
+        params:
+          echo: "25" # must be string
+      - name: output
+        type: shell
+        params:
+          # macOS/Linux with /dev/urandom
+          cmd: "head /dev/urandom | LC_ALL=C tr -dc A-Za-z0-9 | head -c {{length}}; echo ''"
+
+# ——— Generate hash ———
+  - trigger: ";hash"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "echo {{clipboard}} | shasum -a 256 | awk '{print $1}'"

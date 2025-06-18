@@ -1,0 +1,136 @@
+matches:
+  - trigger: ";np"
+    replace: "import numpy as np"
+
+  - trigger: ";mat"
+    replace: "import matplotlib.pyplot as plt"
+
+  - trigger: ";pn"
+    replace: "import pennylane as qml"
+
+  - trigger: ";split"
+    replace: "from sklearn.model_selection import train_test_split"
+
+  - trigger: ";raise"
+    replace: |
+            valid_types = {"a$|$", "b", "c"}
+            if x not in valid_types:
+                raise ValueError(f"Invalid ~ type. Must be one of {valid_types}")
+
+  - trigger: ";class"
+    replace: |
+            class Name:
+                def __init__(self, , ):
+                    self. = 
+                    self. = 
+            
+                def method(self):
+                    pass
+
+  - trigger: ";open"
+    replace: |
+            with open('example.txt$|$', 'r') as file:
+                content = file.read()
+                print(content)
+            with open('example.txt', 'w') as file:
+                file.write('New content')
+
+  - trigger: ";pkl"
+    replace: |
+            import pickle
+            
+            # Function to save data to a file using pickle
+            def save_data(data, filename):
+                try:
+                    with open(filename, 'wb') as f:
+                        pickle.dump(data, f)
+                    print(f"Data saved to {filename} successfully.")
+                except IOError:
+                    print(f"Error saving data to {filename}.")
+            
+            # Function to load data from a file using pickle
+            def load_data(filename):
+                try:
+                    with open(filename, 'rb') as f:
+                        data = pickle.load(f)
+                    print(f"Data loaded from {filename} successfully.")
+                    return data
+                except IOError:
+                    print(f"Error loading data from {filename}.")
+                    return None
+            
+            # Save data
+            save_data(example_data, 'example_data.pkl')
+            
+            # Load data
+            loaded_data = load_data('example_data.pkl')
+
+  - trigger: ";nest"
+    replace: |
+            import itertools
+            
+            list1 = [1, 2, 3]
+            list2 = ['a', 'b']
+            
+            for item1, item2 in itertools.product(list1, list2):
+                print(item1, item2)
+
+  - trigger: ";plt"
+    replace: |
+            import matplotlib.pyplot as plt
+            import numpy as np # Assuming numpy is used for data
+            
+            x_data = 
+            y_data = 
+            
+            plt.figure(figsize=(8, 6))
+            plt.rcParams['font.size'] = 18
+            plt.plot(x_data, y_data, color="black", linestyle='dashed', marker="o", label='Data Label')
+            
+            plt.xlabel("X-axis Label")
+            plt.ylabel("Y-axis Label")
+            plt.title("Plot Title", fontsize=16)
+            
+            plt.xticks()
+            plt.yticks()
+            
+            # Optional customizations:
+            # plt.xlim([min_x, max_x])
+            # plt.ylim([min_y, max_y])
+            # plt.yscale('log') # If log scale is needed
+            # plt.grid(True, linestyle='--', alpha=0.6)
+            plt.legend(bbox_to_anchor=(1, 1), loc="upper left", fontsize=18)
+            
+            # plt.savefig(f"{}.pdf", bbox_inches="tight")
+            plt.show()
+  - trigger: ";3d"
+    replace: |
+            import matplotlib.pyplot as plt
+            import numpy as np
+            
+            # Assuming X, Y are 1D arrays and Z is a 2D array Z[y, x]
+            X = np.linspace(-5, 5, 50)
+            Y = np.linspace(-5, 5, 50)
+            mesh_X, mesh_Y = np.meshgrid(X, Y)
+            
+            # Define Z based on mesh_X, mesh_Y
+            Z = np.sin(np.sqrt(mesh_X**2 + mesh_Y**2)) 
+            
+            fig = plt.figure(figsize=(10, 8))
+            plt.rcParams['font.size'] = 18
+            ax = fig.add_subplot(111, projection='3d')
+            
+            surf = ax.plot_surface(mesh_X, mesh_Y, Z, cmap='viridis', edgecolor='none') # Use a colormap
+            
+            ax.set_xlabel('X Label', fontsize=12)
+            ax.set_ylabel('Y Label', fontsize=12)
+            ax.set_zlabel('Z Label', fontsize=12)
+            ax.set_title('3D Surface Plot', fontsize=14)
+            
+            # Optional: Add a color bar
+            fig.colorbar(surf, shrink=0.5, aspect=5)
+            # Optional: Adjust viewing angle
+            # ax.view_init(elev=30, azim=45) 
+            # Optional: Adjust aspect ratio (might require newer matplotlib versions)
+            # ax.set_box_aspect([1, 1, 0.7]) # Adjust aspect ratio [x, y, z]
+            plt.show()

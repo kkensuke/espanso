@@ -1,0 +1,22 @@
+matches:
+  - trigger: ";mdlink"
+    replace: "[$|$]({{clipboard}})"
+
+  - trigger: ";mdcode"
+    replace: |
+          ```
+          {{clipboard}}
+          ```
+
+  - trigger: ";bg"
+    replace: "- {bdg-primary-line}`P$|$` "
+
+  - trigger: ";adm"
+    replace: |
+            :::{admonition} {bdg-primary-line}`P$|$`
+            :class:
+            
+            :::
+
+  - trigger: ";break"
+    replace: "<br/>"
