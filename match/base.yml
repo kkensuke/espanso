@@ -17,6 +17,10 @@ global_vars:
     type: date
     params:
       format: "%Y/%m/%d/%H:%M"
+  - name: state
+    type: echo
+    params:
+      echo: "1"
 
 
 matches:
@@ -26,3 +30,21 @@ matches:
     replace: "{{today}}"
   - trigger: ";now"
     replace: "{{now}}"
+
+  - trigger: ";state"
+    replace: "{{output}}"
+    vars:
+      - name: path
+        type: echo
+        params:
+          echo: "/Users/kensuke/github/espanso/match/base.yml"
+      - name: output
+        type: shell
+        params:
+          cmd: |
+            if [ {{state}} -eq 0 ];
+            then { echo "state 0" ; sed -i '' 's/echo: \"0\"/echo: \"1\"/' {{path}} };
+            elif [ {{state}} -eq 1 ];
+            then { echo "state 1" ; sed -i '' 's/echo: \"1\"/echo: \"0\"/' {{path}} };
+            else echo "No matching pattern found.";
+            fi

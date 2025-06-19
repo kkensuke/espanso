@@ -32,7 +32,7 @@ matches:
       - name: output
         type: shell
         params:
-          cmd: "open -a Terminal.app; echo 'code ~/github/dotfiles/espanso/'"
+          cmd: "open -a Terminal.app; echo 'code ~/github/espanso/'"
 
   - trigger: ";blog"
     replace: "{{output}}\n"

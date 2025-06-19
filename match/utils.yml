@@ -24,6 +24,25 @@ matches:
         params:
           cmd: "python3 ~/github/tools/repo_to_text/repo_to_text_CJK.py -o ~/Desktop/output.txt {{clipboard}}"
 
+# --- Invert PDF in VScode ---
+  - trigger: ";invert"
+    replace: "{{output}}"
+    vars:
+      - name: path
+        type: echo
+        params:
+          echo: "/Users/kensuke/myLibrary/Application\\ Support/Code/User/settings.json"
+      - name: output
+        type: shell
+        params:
+          cmd: |
+            if grep -q "\"latex-workshop.view.pdf.invert\": 1" {{path}};
+            then sed -i '' 's/\"latex-workshop.view.pdf.invert\": 1/\"latex-workshop.view.pdf.invert\": 0/' {{path}};
+            elif grep -q "\"latex-workshop.view.pdf.invert\": 0" {{path}};
+            then sed -i '' 's/\"latex-workshop.view.pdf.invert\": 0/\"latex-workshop.view.pdf.invert\": 1/' {{path}};
+            else echo "No matching pattern found.";
+            fi
+
 # --- Capslock no delay ---
   - trigger: ";nodl"
     replace: "{{output}}"
