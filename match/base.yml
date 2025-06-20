@@ -31,20 +31,33 @@ matches:
   - trigger: ";now"
     replace: "{{now}}"
 
-  - trigger: ";state"
+  - trigger: ";state;focus"
     replace: "{{output}}"
     vars:
-      - name: path
+      - name: state_focus
         type: echo
         params:
-          echo: "/Users/kensuke/github/espanso/match/base.yml"
+          echo: "~/github/espanso/state/state_focus.txt"
+      - name: current_mode
+        type: shell
+        params:
+          cmd: "if [ -f {{state_focus}} ]; then cat {{state_focus}}; else echo '' > {{state_focus}}; echo ''; fi"
       - name: output
         type: shell
         params:
           cmd: |
-            if [ {{state}} -eq 0 ];
-            then { echo "state 0" ; sed -i '' 's/echo: \"0\"/echo: \"1\"/' {{path}} };
-            elif [ {{state}} -eq 1 ];
-            then { echo "state 1" ; sed -i '' 's/echo: \"1\"/echo: \"0\"/' {{path}} };
-            else echo "No matching pattern found.";
+            if [ "{{current_mode}}" = "WORK" ]; then
+              echo "Switched to PERSONAL"
+
+              # Update state to PERSONAL for next time
+              echo "PERSONAL" > {{state_focus}}
+
+            elif [ "{{current_mode}}" = "PERSONAL" ]; then
+              echo "Switched to WORK"
+
+              # Update state to WORK for next time
+              echo "WORK" > {{state_focus}}
+            else
+              echo "Initializing to WORK"
+              echo "WORK" > {{state_focus}}
             fi

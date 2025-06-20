@@ -179,7 +179,7 @@ matches:
         params:
           cmd: "expr $ESPANSO_NUM1 '*' $ESPANSO_NUM2"
 # Division: 7/8 => ;d7,8;
-  - regex: ";d(?P<num1>.*),(?P<num2>.*);"
+  - regex: ";div(?P<num1>.*),(?P<num2>.*);"
     replace: "{{result}}"
     vars:
       - name: result
@@ -187,7 +187,7 @@ matches:
         params:
           cmd: "expr $ESPANSO_NUM1 / $ESPANSO_NUM2"
 # Power: 7^8 => ;p7,8;
-  - regex: ";p(?P<num1>.*),(?P<num2>.*);"
+  - regex: ";pow(?P<num1>.*),(?P<num2>.*);"
     replace: "{{result}}"
     vars:
       - name: result
@@ -195,7 +195,7 @@ matches:
         params:
           cmd: "echo $[$ESPANSO_NUM1 ** $ESPANSO_NUM2]"
 # Square Root: √7 => ;s7;
-  - regex: ";s(?P<num>.*);"
+  - regex: ";sqrt(?P<num>.*);"
     replace: "{{result}}"
     vars:
       - name: result
