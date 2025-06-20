@@ -1,14 +1,14 @@
-# espanso match file
-# For a complete introduction, visit the official docs at: https://espanso.org/docs/
-
-
 global_vars:
-  - name: global_vars
+  - name: "clipboard"
+    type: "clipboard"
+  - name: global_var
     type: echo
     params:
       echo: "This is a normal global variable"
-  - name: "clipboard"
-    type: "clipboard"
+  - name: GEMINI_API_KEY
+    type: echo
+    params:
+      echo: "FTXQZj6r2NJF4FyEVi3jc5AIF..."
   - name: today
     type: date
     params:
@@ -24,8 +24,8 @@ global_vars:
 
 
 matches:
-  - trigger: ";global_vars"
-    replace: "{{global_vars}}"
+  - trigger: ";global_var"
+    replace: "{{global_var}}"
   - trigger: ";date"
     replace: "{{today}}"
   - trigger: ";now"
