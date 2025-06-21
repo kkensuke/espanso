@@ -5,10 +5,6 @@ global_vars:
     type: echo
     params:
       echo: "This is a normal global variable"
-  - name: GEMINI_API_KEY
-    type: echo
-    params:
-      echo: "FTXQZj6r2NJF4FyEVi3jc5AIF..."
   - name: today
     type: date
     params:
@@ -17,10 +13,6 @@ global_vars:
     type: date
     params:
       format: "%Y/%m/%d/%H:%M"
-  - name: state
-    type: echo
-    params:
-      echo: "1"
 
 
 matches:
