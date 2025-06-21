@@ -4,7 +4,7 @@ This repository contains a personal collection of powerful [Espanso](https://esp
 
 
 ## ✨ Key Features
-- **🤖 LLM‑Powered Workflows**: Direct integration with the Google Gemini API for on‑the‑fly translation, grammar correction, rephrasing, summarization, and custom prompts—all without leaving your current application.
+- **🤖 LLM‑Powered Workflows**: Direct integration with the Google Gemini API for on‑the‑fly translation, grammar correction, rephrasing, summarization, and custom prompts — all without leaving your current application.
 - **🚀 Application & Web Automation**: Smartly switch to existing browser tabs (or open new ones) for frequently used sites like ChatGPT, GitHub, and Slack. Quickly open project folders in your editor or terminal.
 - **🛠️ Powerful Utilities**: A suite of tools at your fingertips, including:
     - Opening URLs with search queries from the clipboard (`chrome.yml`)
@@ -75,7 +75,7 @@ The snippets are organized into logical files in the `match/` directory:
 
 | File                     | Description                        |
 | ------------------------ | ---------------------------------- |
-| **Core & Utilities**     |    |
+| **Utilities**     |    |
 | `base.yml`               | Global variables (clipboard, dates) and the work/personal state toggle.              |
 | `utils.yml`              | General utilities: path copying, currency conversion, dictionary lookup, etc.        |
 | `text.yml`               | Text manipulation: greetings, case conversion, etc.  |
