@@ -18,9 +18,9 @@ matches:
   - trigger: ";showlist"
     replace: |
       **List:**
-      {{formatted_list}}
+      {{list}}
     vars:
-      - name: formatted_list
+      - name: list
         type: shell
         params:
           cmd: "cat {{list_file}}"
