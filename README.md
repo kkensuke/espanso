@@ -67,7 +67,7 @@ global_vars:
       echo: "YOUR_REAL_GEMINI_API_KEY_HERE"
 ```
 
-Keep your API key secure and don’t share it publicly. Add `match/params.yml` to your `.gitignore` to avoid committing it by accident.
+Keep your API key secure and don’t share it publicly. Add `match/params.yml` to your `.gitignore` to avoid committing it by accident if you use GitHub.
 
 
 ## Snippet Guide
@@ -86,11 +86,11 @@ The snippets are organized into logical files in the `match/` directory:
 | `python.yml`             | Python code snippets.              |
 | `latex.yml`              | LaTeX boilerplate for environments like `figure`, `align`, and `theorem`.            |
 | `md.yml`                 | Markdown shortcuts for links, code blocks, etc.      |
-| **Content & LLM**        |    |
+| **LLM**        |    |
 | `llm.yml`                | Core LLM integration: translation, rephrasing, proofreading, etc.                |
 | `english_guideline.yml`  | Academic English writing checklist (used by `llm.yml`).                              |
 | `japanese_guideline.yml` | Academic Japanese writing checklist (used by `llm.yml`).                             |
-| **Symbols & Misc**       |    |
+| **Symbols**       |    |
 | `math.yml`               | Math symbols, Greek letters, and simple calculations.|
 | `emoji.yml`              | Common emojis and special keyboard symbols.          |
 
