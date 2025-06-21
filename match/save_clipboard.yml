@@ -1,0 +1,58 @@
+global_vars:
+  - name: list_file
+    type: echo
+    params:
+      echo: "~/github/espanso/state/clipboard_list.md"
+
+matches:
+  # The trigger to add an item from the clipboard to the list
+  - trigger: ";addlist"
+    replace: "{{append}}Clipboard content added to the list."
+    vars:
+      - name: append
+        type: shell
+        params:
+          cmd: "echo '- {{now}}: {{clipboard}}' >> {{list_file}}"
+
+  # The trigger to retrieve the whole list, formatted as Markdown
+  - trigger: ";showlist"
+    replace: |
+      **List:**
+      {{formatted_list}}
+    vars:
+      - name: formatted_list
+        type: shell
+        params:
+          cmd: "cat {{list_file}}"
+
+  # Select an item from the list to delete from the list
+  - trigger: ";delitem"
+    replace: "{{delete}}Item deleted from the list."
+    vars:
+      - name: list
+        type: shell
+        params:
+          cmd: "cat {{list_file}}"
+      - name: form
+        type: form
+        params:
+          layout: "Delete: [[item_to_delete]]"
+          fields:
+            item_to_delete:
+              type: choice
+              values: "{{list}}"
+      - name: delete
+        type: shell
+        params:
+          cmd: |
+            ESCAPED_ITEM=$(printf '%s\n' "{{form.item_to_delete}}" | sed -e 's/[]\/$*.^[]/\\&/g');
+            sed -i '' "/^${ESCAPED_ITEM}$/d" {{list_file}}
+
+  # A trigger to clear the list and start fresh
+  - trigger: ";dellist"
+    replace: "{{clear}}List cleared."
+    vars:
+      - name: clear
+        type: shell
+        params:
+          cmd: "> {{list_file}}"
