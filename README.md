@@ -1,4 +1,4 @@
-# My Advanced Espanso Configuration
+# My Espanso Configuration
 
 This repository contains a personal collection of powerful [Espanso](https://espanso.org/) snippets designed to boost productivity in coding, writing, and daily tasks. It heavily leverages shell scripting, LLM APIs, and application automation to create a highly efficient workflow on macOS.
 
