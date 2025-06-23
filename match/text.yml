@@ -59,25 +59,11 @@ matches:
           cmd: |
             text="{{clipboard}}"
             case "{{form.style}}" in
-              "UPPERCASE")
-                echo "$text" | tr '[:lower:]' '[:upper:]'
-                ;;
-              "lowercase")
-                echo "$text" | tr '[:upper:]' '[:lower:]'
-                ;;
-              "PascalCase")
-                echo "$text" | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) tolower(substr($i,2));}1' | tr -d ' '
-                ;;
-              "camelCase")
-                echo "$text" | awk '{out=tolower($1); for(i=2;i<=NF;i++){out=out toupper(substr($i,1,1)) tolower(substr($i,2))}; print out}'
-                ;;
-              "Title Case")
-                echo "$text" | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) tolower(substr($i,2));}1'
-                ;;
-              "kebab-case")
-                echo "$text" | sed -E 's/[^a-zA-Z0-9 ]+//g' | tr '[:upper:]' '[:lower:]' | tr -s ' ' '-'
-                ;;
-              "snake_case")
-                echo "$text" | sed -E 's/[^a-zA-Z0-9 ]+//g' | tr '[:upper:]' '[:lower:]' | tr -s ' ' '_'
-                ;;
+              "UPPERCASE")  echo "$text" | tr '[:lower:]' '[:upper:]';;
+              "lowercase")  echo "$text" | tr '[:upper:]' '[:lower:]';;
+              "PascalCase") echo "$text" | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) tolower(substr($i,2));}1' | tr -d ' ';;
+              "camelCase")  echo "$text" | awk '{out=tolower($1); for(i=2;i<=NF;i++){out=out toupper(substr($i,1,1)) tolower(substr($i,2))}; print out}';;
+              "Title Case") echo "$text" | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) tolower(substr($i,2));}1';;
+              "kebab-case") echo "$text" | sed -E 's/[^a-zA-Z0-9 ]+//g' | tr '[:upper:]' '[:lower:]' | tr -s ' ' '-';;
+              "snake_case") echo "$text" | sed -E 's/[^a-zA-Z0-9 ]+//g' | tr '[:upper:]' '[:lower:]' | tr -s ' ' '_';;
             esac

@@ -40,13 +40,10 @@ matches:
           cmd: |
             if [ "{{current_mode}}" = "WORK" ]; then
               echo "Switched to PERSONAL"
-
               # Update state to PERSONAL for next time
               echo "PERSONAL" > {{state_focus}}
-
             elif [ "{{current_mode}}" = "PERSONAL" ]; then
               echo "Switched to WORK"
-
               # Update state to WORK for next time
               echo "WORK" > {{state_focus}}
             else

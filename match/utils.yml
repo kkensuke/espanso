@@ -81,6 +81,30 @@ matches:
             curl -s "https://api.dictionaryapi.dev/api/v2/entries/en/{{clipboard}}" |
             jq -r '.[0] | "\(.word): \n" + (.meanings[0].definitions | map("- " + .definition) | join("\n"))'
 
+# --- Global Variable Lookup ---
+  - trigger: ";vars"
+    replace: "{{var}}"
+    vars:
+      - name: form
+        type: form
+        params:
+          layout: "Global variable: [[var]]"
+          fields:
+            var:
+              type: choice
+              values: ["GEMINI_API_KEY", "OPENAI_API_KEY"]
+      - name: var
+        type: shell
+        params:
+          cmd: |
+              if [ {{form.var}} = 'GEMINI_API_KEY' ]; then
+                  echo {{GEMINI_API_KEY}};
+              elif [ {{form.var}} = 'OPENAI_API_KEY' ]; then
+                  echo {{OPENAI_API_KEY}};
+              else
+                  echo 'Variable not found.';
+              fi
+
 # --- Currency Conversion ---
   - trigger: ";currency"
     replace: "{{conversion}}"
