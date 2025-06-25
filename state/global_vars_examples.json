@@ -1,0 +1,23 @@
+{
+  "api_keys": {
+    "GEMINI_API_KEY": "your_gemini_api_key_here",
+    "OPENAI_API_KEY": "your_openai_api_key_here",
+    "ANTHROPIC_API_KEY": "your_anthropic_api_key_here",
+    "GITHUB_TOKEN": "your_github_token_here"
+  },
+  "urls": {
+    "BLOG_URL": "https://yourblog.com",
+    "GITHUB_PROFILE": "https://github.com/yourusername",
+    "PORTFOLIO": "https://yourportfolio.com"
+  },
+  "paths": {
+    "PROJECT_DIR": "~/github/projects",
+    "BACKUP_DIR": "~/backups",
+    "DOTFILES": "~/github/dotfiles"
+  },
+  "personal": {
+    "NAME": "Your Full Name",
+    "EMAIL": "your.email@example.com",
+    "PHONE": "+1-234-567-8900"
+  }
+}

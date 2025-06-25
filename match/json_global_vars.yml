@@ -1,0 +1,171 @@
+global_vars:
+  - name: global_vars_file
+    type: echo
+    params:
+      echo: "~/github/espanso/state/global_vars.json"
+
+matches:
+# --- Get Variable Value from JSON ---
+  - trigger: ";getvar"
+    replace: "{{value}}"
+    vars:
+      - name: categories
+        type: shell
+        params:
+          cmd: "jq -r 'keys[]' {{global_vars_file}}"
+      - name: form1
+        type: form
+        params:
+          layout: "Category: [[category]]"
+          fields:
+            category:
+              type: choice
+              values: "{{categories}}"
+      - name: keys_in_category
+        type: shell
+        params:
+          cmd: "jq -r '.\"{{form1.category}}\" | keys[]' {{global_vars_file}}"
+      - name: form2
+        type: form
+        params:
+          layout: "Variable: [[key]]"
+          fields:
+            key:
+              type: choice
+              values: "{{keys_in_category}}"
+      - name: value
+        type: shell
+        params:
+          cmd: "jq -r '.\"{{form1.category}}\".\"{{form2.key}}\"' {{global_vars_file}}"
+
+# --- Fast Access: Get Any Variable Directly (No Categories) ---
+  - trigger: ";var"
+    replace: "{{value}}"
+    vars:
+      - name: all_keys
+        type: shell
+        params:
+          cmd: "jq -r '[.[] | keys[]] | .[]' {{global_vars_file}}"
+      - name: form
+        type: form
+        params:
+          layout: "Variable: [[key]]"
+          fields:
+            key:
+              type: choice
+              values: "{{all_keys}}"
+      - name: value
+        type: shell
+        params:
+          cmd: "jq -r --arg key \"{{form.key}}\" '.[] | if has($key) then .[$key] else empty end' {{global_vars_file}} | head -1"
+
+# --- Show All Variables in a Category ---
+  - trigger: ";showcat"
+    replace: "{{output}}"
+    vars:
+      - name: categories
+        type: shell
+        params:
+          cmd: "jq -r 'keys[]' {{global_vars_file}}"
+      - name: form
+        type: form
+        params:
+          layout: "Show category: [[category]]"
+          fields:
+            category:
+              type: choice
+              values: "{{categories}}"
+      - name: output
+        type: shell
+        params:
+          cmd: "jq -r '.\"{{form.category}}\" | to_entries[] | \"\\(.key): \\(.value)\"' {{global_vars_file}}"
+
+# --- Show All Categories and Keys (Overview) ---
+  - trigger: ";allvar"
+    replace: "{{overview}}\n\n"
+    vars:
+      - name: overview
+        type: shell
+        params:
+          cmd: "jq -r 'to_entries[] | \"## \" + .key + \"\\n\" + (.value | to_entries | map(\"- \" + .key + \": \" + .value) | join(\"\\n\")) + \"\\n\"' {{global_vars_file}}"
+
+# --- Add New Key-Value Pair ---
+  - trigger: ";setvar"
+    replace: "{{result}}"
+    vars:
+      - name: categories
+        type: shell
+        params:
+          cmd: "jq -r 'keys[]' {{global_vars_file}}"
+      - name: form
+        type: form
+        params:
+          layout: |
+                  Category: [[category]]
+                  Key: [[key]]
+                  Value: [[value]]
+          fields:
+            category:
+              type: choice
+              values: "{{categories}}"
+      - name: result
+        type: shell
+        params:
+          cmd: |
+            jq --arg cat "{{form.category}}" --arg key "{{form.key}}" --arg val "{{form.value}}" \
+            '.[$cat][$key] = $val' {{global_vars_file}} > /tmp/vars.json && \
+            mv /tmp/vars.json {{global_vars_file}} && \
+            echo "Set {{form.category}}.{{form.key}} = {{form.value}}"
+
+# --- Add New Category ---
+  - trigger: ";newcat"
+    replace: "{{result}}"
+    vars:
+      - name: form
+        type: form
+        params:
+          layout: "New category: [[category]]"
+      - name: result
+        type: shell
+        params:
+          cmd: |
+            jq --arg cat "{{form.category}}" '. + {($cat): {}}' {{global_vars_file}} > /tmp/vars.json && \
+            mv /tmp/vars.json {{global_vars_file}} && \
+            echo "Created category: {{form.category}}"
+
+# --- Delete Key ---
+  - trigger: ";delvar"
+    replace: "{{result}}"
+    vars:
+      - name: categories
+        type: shell
+        params:
+          cmd: "jq -r 'keys[]' {{global_vars_file}}"
+      - name: form1
+        type: form
+        params:
+          layout: "Category: [[category]]"
+          fields:
+            category:
+              type: choice
+              values: "{{categories}}"
+      - name: keys_in_category
+        type: shell
+        params:
+          cmd: "jq -r '.\"{{form1.category}}\" | keys[]' {{global_vars_file}}"
+      - name: form2
+        type: form
+        params:
+          layout: "Delete key: [[key]]"
+          fields:
+            key:
+              type: choice
+              values: "{{keys_in_category}}"
+      - name: result
+        type: shell
+        params:
+          cmd: |
+            jq --arg cat "{{form1.category}}" --arg key "{{form2.key}}" \
+            'del(.[$cat][$key])' {{global_vars_file}} > /tmp/vars.json && \
+            mv /tmp/vars.json {{global_vars_file}} && \
+            echo "Deleted {{form1.category}}.{{form2.key}}"
