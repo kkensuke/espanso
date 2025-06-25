@@ -12,8 +12,7 @@
   },
   "paths": {
     "PROJECT_DIR": "~/github/projects",
-    "BACKUP_DIR": "~/backups",
-    "DOTFILES": "~/github/dotfiles"
+    "BACKUP_DIR": "~/backups"
   },
   "personal": {
     "NAME": "Your Full Name",
