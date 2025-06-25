@@ -31,7 +31,7 @@ matches:
       - name: path
         type: echo
         params:
-          echo: "/Users/kensuke/myLibrary/Application\\ Support/Code/User/settings.json"
+          echo: "~/myLibrary/Application\\ Support/Code/User/settings.json"
       - name: output
         type: shell
         params:
