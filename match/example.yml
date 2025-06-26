@@ -95,19 +95,19 @@ matches:
 
 # --- Random excuse generator ---
   - trigger: ";excuse"
-    replace: "{{excuse}}"
+    replace: "{{output}}"
     vars:
-      - name: excuse
-        type: shell
+      - name: output
+        type: random
         params:
-          cmd: |
-            excuses=(
-              "My cat walked on the keyboard."
-              "The cosmic rays flipped a bit."
-              "It works on my machine."
-              "That's a feature, not a bug."
-              "The cache needs to be cleared."
-              "DNS propagation issues."
-              "Mercury is in retrograde."
-            )
-            echo "${excuses[$RANDOM % ${#excuses[@]}]}"
+          choices:
+            - "My cat walked on the keyboard."
+            - "The cosmic rays flipped a bit."
+            - "It works on my machine."
+            - "That's a feature, not a bug."
+            - "The cache needs to be cleared."
+            - "DNS propagation issues."
+            - "Mercury is in retrograde."
+            - "I was distracted by a squirrel."
+            - "I forgot to save my changes."
+            - "I was testing your patience."
