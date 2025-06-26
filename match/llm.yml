@@ -11,7 +11,7 @@ global_vars:
                       "parts": [{"text": "{{instruction}}"}]
                     }]
                   }' \
-            | jq -r '.candidates[0].content.parts[0].text | split("\n")[0]'
+            | jq -r '.candidates[0].content.parts[0].text'
 
 matches:
   - trigger: ";efix"
