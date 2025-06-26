@@ -58,6 +58,32 @@ matches:
           # macOS/Linux with /dev/urandom
           cmd: "head /dev/urandom | LC_ALL=C tr -dc A-Za-z0-9 | head -c {{length}}; echo ''"
 
+  - trigger: ";secpw"
+    replace: "{{password}}"
+    vars:
+      - name: form
+        type: form
+        params:
+          layout: |
+            Length: [[length]]
+            Include Symbols: [[symbols]]
+          fields:
+            length:
+              type: choice
+              values: ["16", "20", "24"]
+            symbols:
+              type: choice
+              values: ["Yes", "No"]
+      - name: password
+        type: shell
+        params:
+          cmd: |
+            if [ "{{form.symbols}}" = "Yes" ]; then
+              LC_ALL=C tr -dc 'A-Za-z0-9!@#$%^&*' < /dev/urandom | head -c {{form.length}}
+            else
+              LC_ALL=C tr -dc 'A-Za-z0-9' < /dev/urandom | head -c {{form.length}}
+            fi
+
 # ——— Generate hash ———
   - trigger: ";hash"
     replace: "{{output}}"
