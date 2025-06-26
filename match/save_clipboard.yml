@@ -6,13 +6,17 @@ global_vars:
 
 matches:
 # --- The trigger to add an item from the clipboard to the list ---
-  - trigger: ";addlist"
+  - trigger: ";additem"
     replace: "{{append}}Clipboard content added to the list."
     vars:
       - name: append
         type: shell
         params:
-          cmd: "echo '- {{now}}: {{clipboard}}' >> {{list_file}}"
+          cmd: |
+            # Remove any existing newline, carriage return, or tab characters,
+            # replace them with a single space, and trim leading/trailing spaces.
+            SANITIZED_CLIPBOARD=$(echo "{{clipboard}}" | tr '\n\r\t' ' ' | tr -s ' ' | sed 's/^ *//;s/ *$//')
+            echo "- {{now}}: ${SANITIZED_CLIPBOARD}" >> {{list_file}}
 
 # --- The trigger to retrieve the whole list ---
   - trigger: ";showlist"
@@ -27,26 +31,45 @@ matches:
 
 # --- Select an item from the list to delete from the list ---
   - trigger: ";delitem"
+    # The 'replace' value is just a confirmation message.
     replace: "{{delete}}Item deleted from the list."
     vars:
-      - name: list
+      # 1. Create a formatted list specifically for the form.
+      #    - 'nl' prepends line numbers (e.g., "     1  - 2023-10-27...")
+      #    - 'cut' truncates each line to a max of 85 characters to keep the form tidy.
+      - name: list_for_form
         type: shell
         params:
-          cmd: "cat {{list_file}}"
+          cmd: "nl -w 3 -s ': ' {{list_file}} | cut -c 1-85"
+      # 2. The form now uses the truncated, numbered list for its choices.
       - name: form
         type: form
         params:
-          layout: "Delete: [[item_to_delete]]"
+          layout: "Select item to delete:\n[[item_to_delete]]"
           fields:
             item_to_delete:
               type: choice
-              values: "{{list}}"
+              values: "{{list_for_form}}"
+      # 3. The delete logic is now smarter.
       - name: delete
         type: shell
         params:
           cmd: |
-            ESCAPED_ITEM=$(printf '%s\n' "{{form.item_to_delete}}" | sed -e 's/[]\/$*.^[]/\\&/g');
-            sed -i '' "/^${ESCAPED_ITEM}$/d" {{list_file}}
+            # Exit early if the user cancelled the form (the variable will be empty).
+            if [ -z "{{form.item_to_delete}}" ]; then
+              exit 0
+            fi
+
+            # Step A: Extract the line number from the selected item.
+            #   - 'echo "{{form.item_to_delete}}"' -> "  1: - 2023-10-27: Some tex..."
+            #   - 'cut -d ':' -f 1' -> "  1"
+            #   - 'xargs' -> "1" (trims whitespace)
+            LINE_TO_DELETE=$(echo "{{form.item_to_delete}}" | cut -d ':' -f 1 | xargs)
+
+            # Step B: Use 'sed' to delete that specific line number from the file.
+            #   - "${LINE_TO_DELETE}d" tells sed to delete the line with that number.
+            #   - The -i '' is for macOS compatibility. For Linux, you might just use -i.
+            sed -i '' "${LINE_TO_DELETE}d" {{list_file}}
 
 # --- A trigger to clear the list and start fresh ---
   - trigger: ";dellist"
