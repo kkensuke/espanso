@@ -1,0 +1,108 @@
+global_vars:
+  - name: trigger_index_file
+    type: echo
+    params:
+      echo: "~/github/espanso/state/trigger_index.json"
+
+matches:
+# --- Browse Triggers by File ---
+  - trigger: ";triggers"
+    replace: "{{output}}"
+    vars:
+      - name: available_files
+        type: shell
+        params:
+          cmd: "jq -r 'keys[]' {{trigger_index_file}}"
+      - name: form
+        type: form
+        params:
+          layout: "Select file to view triggers: [[filename]]"
+          fields:
+            filename:
+              type: choice
+              values: "{{available_files}}"
+      - name: output
+        type: shell
+        params:
+          cmd: |
+            echo "🎯 Triggers in {{form.filename}}:"
+            echo "=================================="
+            jq -r '.["{{form.filename}}"].triggers[]' {{trigger_index_file}} | sed 's/^/- /'
+            echo ""
+            trigger_count=$(jq -r '.["{{form.filename}}"].count' {{trigger_index_file}})
+            echo "📊 Total: $trigger_count triggers"
+
+# --- Search for Specific Trigger Across All Files ---
+  - trigger: ";findtrigger"
+    replace: "{{results}}"
+    vars:
+      - name: form
+        type: form
+        params:
+          layout: "Search for trigger: [[search_term]]"
+      - name: results
+        type: shell
+        params:
+          cmd: |
+            search_term="{{form.search_term}}"
+            echo "🔍 Searching for triggers containing: '$search_term'"
+            echo "================================================"
+            
+            found=false
+            for file in $(jq -r 'keys[]' {{trigger_index_file}}); do
+                triggers=$(jq -r --arg file "$file" '.[$file].triggers[] | select(. | contains("'$search_term'"))' {{trigger_index_file}})
+                if [[ -n "$triggers" ]]; then
+                    echo "📁 $file:"
+                    echo "$triggers" | sed 's/^/- /'
+                    echo ""
+                    found=true
+                fi
+            done
+            
+            if [[ "$found" == false ]]; then
+                echo "❌ No triggers found containing '$search_term'"
+            fi
+
+# --- Show All Triggers from All Files (Compact List) ---
+  - trigger: ";alltrigger"
+    replace: "{{all_triggers}}"
+    vars:
+      - name: all_triggers
+        type: shell
+        params:
+          cmd: |
+            echo "🎯 All Available Triggers"
+            echo "========================="
+            echo ""
+            
+            # Get all unique triggers across all files, sorted
+            jq -r '[.[] | .triggers[]] | unique | .[]' {{trigger_index_file}} | nl -w3 -s'. '
+
+# --- Show All Files and Their Trigger Counts ---
+  - trigger: ";triggerfiles"
+    replace: "{{overview}}"
+    vars:
+      - name: overview
+        type: shell
+        params:
+          cmd: "jq -r 'to_entries | sort_by(.key) | .[] | \"📁 \\(.key): \\(.value.count) triggers\"' {{trigger_index_file}}"
+
+# --- Generate Trigger Index (Run the Shell Script) ---
+  - trigger: ";updatetrigger"
+    replace: "{{result}}"
+    vars:
+      - name: result
+        type: shell
+        params:
+          cmd: |
+            echo "🔄 Updating trigger index..."
+            
+            # Check if the generation script exists
+            script_path="$HOME/github/espanso/generate_trigger_index.sh"
+            if [[ -f "$script_path" ]]; then
+                bash "$script_path"
+                echo "✅ Trigger index updated successfully!"
+            else
+                echo "❌ Script not found at: $script_path"
+                echo "💡 Please create the script first using the provided shell script."
+            fi
