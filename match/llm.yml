@@ -27,14 +27,12 @@ matches:
     replace: "Please explain how to "
   - trigger: ";summarize"
     replace: "Please summarize the following text or attached document in a concise manner: "
-  - trigger: ";mail"
-    replace: "Please write an email about the following things politely: "
   - trigger: ";extract"
     replace: "Extract the essence of the contents in markdown format with hyphen (-) bullet list. Use '##' for each header and 2 blank lines before headers and no blank line after headers: "
   - trigger: ";plot"
     replace: "Generate a Python script to plot the following function or data: $|$"
 
-# ——— Translate Clipboard → Japanese (via Google Gemini) ———
+# ——— Translate Clipboard → Japanese ———
   - trigger: ";ejt"
     replace: "{{translation}}"
     vars:
@@ -47,7 +45,7 @@ matches:
         params:
           cmd: "{{gemini_api_call_template}}"
 
-# ——— Translate Clipboard → English (via Google Gemini) ———
+# ——— Translate Clipboard → English ———
   - trigger: ";jet"
     replace: "{{translation}}"
     vars:
@@ -60,7 +58,20 @@ matches:
         params:
           cmd: "{{gemini_api_call_template}}"
 
-# ——— Bullet Point List (via Google Gemini) ———
+# --- Write Email ---
+  - trigger: ";mail"
+    replace: "{{mail}}"
+    vars:
+      - name: instruction
+        type: echo
+        params:
+          echo: "Write a polite email based on the following content. Use a formal tone and include a subject line. Respond in the SAME LANGUAGE as the original text.: {{clipboard}}"
+      - name: mail
+        type: shell
+        params:
+          cmd: "{{gemini_api_call_template}}"
+
+# ——— Bullet Point List ———
   - trigger: ";bullet"
     replace: "{{bullets}}"
     vars:
@@ -73,7 +84,7 @@ matches:
         params:
           cmd: "{{gemini_api_call_template}}"
 
-# --- Rephrase Clipboard (via Google Gemini) ---
+# --- Rephrase Clipboard ---
   - trigger: ";rephrase"
     replace: "{{alternatives}}"
     vars:

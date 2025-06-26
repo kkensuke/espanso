@@ -24,6 +24,15 @@ matches:
         params:
           cmd: "python3 ~/github/tools/repo_to_text/repo_to_text_CJK.py -o ~/Desktop/output.txt {{clipboard}}"
 
+# --- Make youtube summary ---
+  - trigger: ";yttext"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "source ~/venv/bin/activate; export GEMINI_API_KEY='{{GEMINI_API_KEY}}'; python3 ~/github/tools/yt_dlp_transcript/yt_dlp_transcript.py '{{clipboard}}' -o ~/Desktop/output.md"
+
 # --- Invert PDF in VScode ---
   - trigger: ";invert"
     replace: "{{output}}"
