@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script to convert JSON file to YAML format for espanso global_vars
+# Converts a JSON file into an Espanso YAML configuration with global variables and triggers.
 # Usage: ./json_to_yml.sh > match/global_vars.yml
 
 JSON_FILE="$HOME/github/espanso/config/global_vars.json"
