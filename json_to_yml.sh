@@ -3,7 +3,7 @@
 # Script to convert JSON file to YAML format for espanso global_vars
 # Usage: ./json_to_yml.sh > match/global_vars.yml
 
-JSON_FILE="$HOME/github/espanso/state/global_vars.json"
+JSON_FILE="$HOME/github/espanso/config/global_vars.json"
 
 # Check if JSON file exists
 if [[ ! -f "$JSON_FILE" ]]; then
