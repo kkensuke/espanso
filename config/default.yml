@@ -6,6 +6,7 @@
 
 
 show_icon: false
-search_trigger: ".espanso"
-undo_backspace: false
 clipboard_threshold: 1000
+undo_backspace: false
+search_trigger: ".espanso"
+search_shortcut: off
