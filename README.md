@@ -213,25 +213,25 @@ This script:
 │   ├── default.yml                      # Espanso global configuration
 │   └── global_vars_examples.json        # Example JSON structure for variables
 ├── match/                               # All snippet files
-│   ├── base.yml                         # Core global variables and state toggle
-│   ├── chrome.yml                       # Browser automation and tab switching
-│   ├── emoji.yml                        # Common emojis and special keyboard symbols
-│   ├── english_guideline.yml            # Academic English writing checklist
+│   ├── base.yml                         # Basic global variables and state toggle
 │   ├── example.yml                      # Example snippets (passwords, UUIDs, etc.)
 │   ├── form.yml                         # Form examples and TODO templates
-│   ├── japanese_guideline.yml           # Academic Japanese writing checklist
-│   ├── json_global_vars.yml             # Dynamic variable management from JSON
-│   ├── latex.yml                        # LaTeX boilerplate and environments
-│   ├── llm.yml                          # LLM integration (Gemini API)
+│   ├── emoji.yml                        # Common emojis and special keyboard symbols
 │   ├── math.yml                         # Math symbols, Greek letters, calculations
+│   ├── english_guideline.yml            # Academic English writing checklist
+│   ├── japanese_guideline.yml           # Academic Japanese writing checklist
+│   ├── chrome.yml                       # Browser automation and tab switching
+│   ├── tabchange.yml                    # AppleScript for Chrome tab switching (used by `chrome.yml`)
+│   ├── latex.yml                        # LaTeX boilerplate and environments
 │   ├── md.yml                           # Markdown shortcuts and formatting
-│   ├── open.yml                         # File/directory opening and project management
 │   ├── physics.yml                      # Physics notation (quantum states, etc.)
 │   ├── python.yml                       # Python code snippets and templates
-│   ├── save_clipboard.yml               # Clipboard management and history
-│   ├── tabchange.yml                    # AppleScript for Chrome tab switching
+│   ├── llm.yml                          # LLM integration (Gemini API)
+│   ├── open.yml                         # File/directory opening and project management
 │   ├── text.yml                         # Text manipulation and case conversion
+│   ├── json_global_vars.yml             # Dynamic variable management from JSON
 │   ├── trigger_search.yml               # Trigger discovery and search tools
+│   ├── save_clipboard.yml               # Clipboard management and history
 │   └── utils.yml                        # General utilities and tools
 ├── state/                               # Runtime state and data storage
 │   ├── clipboard_list_examples.md       # Example saved clipboard items
@@ -244,8 +244,8 @@ This script:
 ## 🎯 Getting Started Tips
 
 1. **Start Small**: Begin with basic triggers like `;date`, `;gpt`, and `;case` to get familiar
-2. **Index Your Triggers**: Run `generate_trigger_index.sh` and use `;triggers` to explore available snippets
-3. **Set Up Clipboard Management**: Use `;additem` to start building your clipboard history
+2. **Set Up Clipboard Management**: Use `;additem` to start building your clipboard history
+3. **Index Your Triggers**: Run `generate_trigger_index.sh` and use `;triggers` to explore available snippets
 4. **Configure Global Variables**: Create your `config/global_vars.json` for personalized snippets
 5. **Explore by Category**: Use `;triggerfiles` to see what's available in each file
 6. **Customize for Your Workflow**: Modify triggers and add your own based on your specific needs
