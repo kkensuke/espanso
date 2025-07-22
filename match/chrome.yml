@@ -74,6 +74,20 @@ matches:
 
 
 # --- always open in new tab ---
+  - trigger: ";tab"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: |
+            osascript -e '
+            tell application "Google Chrome"
+                activate
+                tell window 1 to make new tab with properties {URL:"chrome://newtab/"}
+                set index of window 1 to 1
+            end tell'
+
   - trigger: ";ggl"
     replace: "{{output}}"
     vars:
