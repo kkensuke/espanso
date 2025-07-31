@@ -24,7 +24,7 @@ matches:
       - name: output
         type: shell
         params:
-          cmd: "open -a Terminal.app; echo 'code ~/github/notion/'"
+          cmd: "open -a Terminal.app; echo 'code ~/Desktop/temp/notion/'"
 
   - trigger: ";espanso"
     replace: "{{output}}\n"

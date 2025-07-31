@@ -38,8 +38,6 @@ matches:
     replace: "→"
   - triggers: [";pc",";emoji"]
     replace: "🧑‍💻"
-  - triggers: [";pc",";emoji"]
-    replace: "💻"
   - triggers: [";bow",";emoji"]
     replace: "🙇"
   - triggers: [";bow",";emoji"]
@@ -58,7 +56,7 @@ matches:
     replace: "😇"
   - triggers: [";glass",";emoji"]
     replace: "😎"
-  - triggers: [";dbt",";emoji"]
+  - triggers: [";really",";emoji"]
     replace: "🧐"
   - triggers: [";think",";emoji"]
     replace: "🤔"
