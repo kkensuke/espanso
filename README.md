@@ -106,8 +106,8 @@ The snippets are organized into logical files in the `match/` directory:
 Here are some examples of the most powerful snippets. They use the clipboard text as input:
 | Trigger        | Action      |
 | -------------- | ----------- |
-| `;transen`     | Translate clipboard content to English via Gemini. |
-| `;transja`     | Translate clipboard content to Japanese via Gemini. |
+| `;jet`         | Translate clipboard content to English via Gemini. |
+| `;ejt`         | Translate clipboard content to Japanese via Gemini. |
 | `;gpt`         | Switch to the ChatGPT tab if open, otherwise open a new one. (`;gai` for Google Gemini, `;claude` for Claude.) |
 | `;cdgh`        | Shows a form with a list of your repos in `~/github/` and opens the selected one in VS Code.        |
 | `;case`        | Open a form to convert the clipboard text to `UPPERCASE`, `lowercase`, `camelCase`, `snake_case`, etc.    |
@@ -125,8 +125,7 @@ The `save_clipboard.yml` file provides persistent clipboard management with time
 | `;delitem`   | Select and delete a specific item from the saved list |
 | `;dellist`   | Clear the entire clipboard history |
 
-All clipboard items are stored in `state/clipboard_list.md` with timestamps for easy reference and organization.
-
+All clipboard items are stored in `state/clipboard_list.md` with timestamps for easy reference and organization. It is recommended to add this file to your `.gitignore` to avoid committing sensitive information.
 
 ## 🔍 Trigger Discovery & Management
 The repository includes powerful tools for managing and discovering your triggers:
@@ -187,6 +186,8 @@ This script:
 - Generates properly formatted YAML with global_vars and matches sections
 - Automatically creates triggers for each variable (`;VARIABLE_NAME` → `{{VARIABLE_NAME}}`)
 - Organizes output by categories with clear headers
+
+Both `config/global_vars.json` and `match/global_vars.yml` should be added to your `.gitignore` to avoid committing sensitive information.
 
 
 ## 🛠️ Helper Scripts
