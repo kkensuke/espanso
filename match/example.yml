@@ -24,14 +24,6 @@ matches:
       - name: output
         type: shell
         params:
-          cmd: "curl -s 'https://api.ipify.org'"
-
-  - trigger: ";ipinfo"
-    replace: "{{info}}"
-    vars:
-      - name: info
-        type: shell
-        params:
           cmd: "curl -s 'https://ipinfo.io' | jq -r '\"IP: \" + .ip + \"\nLocation: \" + .city + \", \" + .region + \", \" + .country + \"\nISP: \" + .org'"
 
 # ——— Generate Random Number ———
