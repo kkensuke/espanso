@@ -134,7 +134,7 @@ The repository includes powerful tools for managing and discovering your trigger
 Run the `generate_trigger_index.sh` script to create a comprehensive JSON index of all your triggers:
 
 ```bash
-./generate_trigger_index.sh
+sh generate_trigger_index.sh
 ```
 
 This script:
@@ -178,7 +178,7 @@ The `json_global_vars.yml` file allows you to manage global variables dynamicall
 Use the `json_to_yml.sh` script to convert your JSON configuration to YAML format:
 
 ```bash
-./json_to_yml.sh > match/global_vars.yml
+sh json_to_yml.sh
 ```
 
 This script:
