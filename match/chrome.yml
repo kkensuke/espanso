@@ -135,19 +135,3 @@ matches:
         type: shell
         params:
           cmd: "open 'https://espanso.org/docs/get-started/'"
-
-  - trigger: ";clear"
-    replace: "{{output}}"
-    vars:
-      - name: output
-        type: shell
-        params:
-          cmd: "open -a 'Google\ Chrome' 'chrome://settings/clearBrowserData'"
-
-  - trigger: ";extension"
-    replace: "{{output}}"
-    vars:
-      - name: output
-        type: shell
-        params:
-          cmd: "open -a 'Google\ Chrome' 'chrome://extensions/'"
