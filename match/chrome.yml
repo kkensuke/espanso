@@ -94,14 +94,6 @@ matches:
       - name: output
         type: shell
         params:
-          cmd: "open 'https://www.google.com/'"
-
-  - trigger: ";ggs"
-    replace: "{{output}}"
-    vars:
-      - name: output
-        type: shell
-        params:
           cmd: "open 'https://www.google.com/search?q={{clipboard}}'"
 
   - trigger: ";scholar"
