@@ -88,7 +88,6 @@ The snippets are organized into logical files in the `match/` directory:
 | `chrome.yml`             | Smart tab switching/opening for common sites (ChatGPT, GitHub, Slack, YouTube, etc.) |
 | `tabchange.yml`          | AppleScript for smart tab switching (used by `chrome.yml`).                          |
 | `python.yml`             | Python code snippets.              |
-| `latex.yml`              | LaTeX boilerplate for environments like `figure`, `align`, and `theorem`.            |
 | `md.yml`                 | Markdown shortcuts for links, code blocks, etc.      |
 | **LLM**        |    |
 | `llm.yml`                | Core LLM integration: translation, rephrasing, proofreading, etc.                |
@@ -223,7 +222,6 @@ Both `config/global_vars.json` and `match/global_vars.yml` should be added to yo
 │   ├── japanese_guideline.yml           # Academic Japanese writing checklist
 │   ├── chrome.yml                       # Browser automation and tab switching
 │   ├── tabchange.yml                    # AppleScript for Chrome tab switching (used by `chrome.yml`)
-│   ├── latex.yml                        # LaTeX boilerplate and environments
 │   ├── md.yml                           # Markdown shortcuts and formatting
 │   ├── physics.yml                      # Physics notation (quantum states, etc.)
 │   ├── python.yml                       # Python code snippets and templates

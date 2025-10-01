@@ -1,7 +1,4 @@
 matches:
-  - trigger: ";mdlink"
-    replace: "[$|$]({{clipboard}})"
-
   - trigger: ";mdcode"
     replace: |
           ```
