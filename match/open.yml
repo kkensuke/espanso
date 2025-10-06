@@ -70,7 +70,7 @@ matches:
       - name: output
         type: shell
         params:
-          cmd: "cd ~/Desktop/temp/; touch memo.md; open -a 'Visual Studio Code.app' memo.md"
+          cmd: "cd ~/Desktop/temp/; touch 0.md; open -a 'Visual Studio Code.app' 0.md"
 
   - regex: ";url(?P<name>.*);" # input: ;urlname; → output: name.url
     replace: "{{output}}"

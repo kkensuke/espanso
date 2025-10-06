@@ -72,17 +72,29 @@ matches:
     replace: "🐑"
   - triggers: [";ocha",";emoji"]
     replace: "🍵"
-  - triggers: [";facepalm", ";fp", ";emoji"]
-    replace: "🤦"
-  - triggers: [";shrug", ";emoji"]
+  - triggers: [";shrug",";emoji"]
     replace: "🤷"
-  - triggers: [";tada", ";party", ";emoji"]
+  - triggers: [";tada",";party",";emoji"]
     replace: "🎉"
-  - triggers: [";eyes", ";emoji"]
+  - triggers: [";eyes",";emoji"]
     replace: "👀"
-  - triggers: [";pray", ";emoji"]
+  - triggers: [";pray",";emoji"]
     replace: "🙏"
-  - triggers: [";fire", ";emoji"]
+  - triggers: [";fire",";emoji"]
     replace: "🔥"
-  - triggers: [";clap", ";emoji"]
+  - triggers: [";clap",";emoji"]
     replace: "👏"
+
+
+# --- Emoji Picker Form ---
+  - trigger: ";allemoji"
+    replace: "{{form.emoji}}"
+    vars:
+      - name: form
+        type: form
+        params:
+          layout: "Select emoji: [[emoji]]"
+          fields:
+            emoji:
+              type: choice
+              values: ["👍","✅","👎","❌","⬅️","⬇️","⬆️","➡️","←","↓","↑","→","🍵","🧑‍💻","🙇","🙇‍♂️","😊","😅","💦","😂","🥲","😇","😎","🧐","🤔","😭","🤯","😪","😴","🐑","🤦","🤷","🎉","👀","🙏","🔥","👏"]

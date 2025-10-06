@@ -43,6 +43,25 @@ matches:
             else echo "No matching pattern found.";
             fi
 
+# --- Toggle Aerospace Right Gap ---
+  - trigger: ";gap"
+    replace: "{{output}}"
+    vars:
+      - name: path
+        type: echo
+        params:
+          echo: "~/github/dotfiles/home/.aerospace.toml"
+      - name: output
+        type: shell
+        params:
+          cmd: |
+            if grep -q "outer.right =      130" {{path}};
+            then sed -i '' 's/outer.right =      130/outer.right =      0/' {{path}} && aerospace reload-config;
+            elif grep -q "outer.right =      0" {{path}};
+            then sed -i '' 's/outer.right =      0/outer.right =      130/' {{path}} && aerospace reload-config;
+            else echo "No matching pattern found.";
+            fi
+
 # --- Capslock no delay ---
   - trigger: ";nodl"
     replace: "{{output}}"
