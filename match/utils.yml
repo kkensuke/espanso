@@ -114,28 +114,10 @@ matches:
           fields:
             from:
               type: choice
-              values:
-                - "USD"
-                - "JPY"
-                - "CHF"
-                - "EUR" 
-                - "GBP"
-                - "CNY"
-                - "KRW"
-                - "CAD"
-                - "AUD"
+              values: ["USD", "JPY", "CHF", "EUR", "GBP", "CNY", "KRW", "CAD", "AUD"]
             to:
               type: choice
-              values:
-                - "JPY"
-                - "USD"
-                - "EUR"
-                - "CHF"
-                - "GBP" 
-                - "CNY"
-                - "KRW"
-                - "CAD"
-                - "AUD"
+              values: ["JPY", "USD", "EUR", "CHF", "GBP", "CNY", "KRW", "CAD", "AUD"]
       - name: conversion
         type: shell
         params:
