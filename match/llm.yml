@@ -23,15 +23,6 @@ matches:
   - trigger: ";jprf"
     replace: "次のガイドラインを確認し、最後に与えられる文章を校正してください：\n\n{{japanese_guideline}}\n\n校正する文章："
 
-  - trigger: ";how"
-    replace: "Please explain how to "
-  - trigger: ";summarize"
-    replace: "Please summarize the following text or attached document in a concise manner: "
-  - trigger: ";extract"
-    replace: "Extract the essence of the contents in markdown format with hyphen (-) bullet list. Use '##' for each header and 2 blank lines before headers and no blank line after headers: "
-  - trigger: ";plot"
-    replace: "Generate a Python script to plot the following function or data: $|$"
-
 # ——— Translate Clipboard → Japanese ———
   - trigger: ";ejt"
     replace: "{{translation}}"
@@ -54,32 +45,6 @@ matches:
         params:
           echo: "Translate the following to English. Provide ONLY the translated text, no explanations or markdown; {{clipboard}}"
       - name: translation
-        type: shell
-        params:
-          cmd: "{{gemini_api_call_template}}"
-
-# --- Write Email ---
-  - trigger: ";mail"
-    replace: "{{mail}}"
-    vars:
-      - name: instruction
-        type: echo
-        params:
-          echo: "Write a polite email based on the following content. Use a formal tone and include a subject line. Respond in the SAME LANGUAGE as the original text.: {{clipboard}}"
-      - name: mail
-        type: shell
-        params:
-          cmd: "{{gemini_api_call_template}}"
-
-# ——— Bullet Point List ———
-  - trigger: ";bullet"
-    replace: "{{bullets}}"
-    vars:
-      - name: instruction
-        type: echo
-        params:
-          echo: "Convert the following text into a clear, concise bullet point list. Respond in the SAME LANGUAGE as the original text.: {{clipboard}}"
-      - name: bullets
         type: shell
         params:
           cmd: "{{gemini_api_call_template}}"
