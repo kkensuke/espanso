@@ -30,7 +30,7 @@ matches:
     replace: "ξ"
   - trigger: ";omicron"
     replace: "ο"
-  - trigger: ";pi"
+  - trigger: ";mathpi"
     replace: "π"
   - trigger: ";rho"
     replace: "ρ"
