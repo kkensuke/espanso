@@ -108,7 +108,7 @@ Here are some examples of the most powerful snippets. They use the clipboard tex
 | `;jet`         | Translate clipboard content to English via Gemini. |
 | `;ejt`         | Translate clipboard content to Japanese via Gemini. |
 | `;gpt`         | Switch to the ChatGPT tab if open, otherwise open a new one. (`;gai` for Google Gemini, `;claude` for Claude.) |
-| `;cdgh`        | Shows a form with a list of your repos in `~/github/` and opens the selected one in VS Code.        |
+| `;cdgh`        | Shows a form with a list of your repos in `github/` and opens the selected one in VS Code.        |
 | `;case`        | Open a form to convert the clipboard text to `UPPERCASE`, `lowercase`, `camelCase`, `snake_case`, etc.    |
 | `;clippath`    | Copy the POSIX path of the selected file/folder in Finder.            |
 | `;state;focus` | Toggles the state between "WORK" and "PERSONAL" by updating `state/state_focus.txt`. You can use this to change the behavior of other snippets based on the current state.       |

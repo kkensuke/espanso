@@ -29,7 +29,7 @@ matches:
       - name: state_focus
         type: echo
         params:
-          echo: "~/github/espanso/state/state_focus.txt"
+          echo: "~/Desktop/github/espanso/state/state_focus.txt"
       - name: current_mode
         type: shell
         params:

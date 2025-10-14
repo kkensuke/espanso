@@ -14,9 +14,9 @@ matches:
       - name: output
         type: shell
         params:
-          cmd: "open -a Terminal.app; echo 'code ~/github/espanso/'"
+          cmd: "open -a Terminal.app; echo 'code ~/Desktop/github/espanso/'"
           # following commands deletes some letters from the file when you open it
-          # cmd: "code ~/github/espanso/"
+          # cmd: "code ~/Desktop/github/espanso/"
 
   - trigger: ";blog"
     replace: "{{output}}\n"
@@ -32,7 +32,7 @@ matches:
       - name: output
         type: shell
         params:
-          cmd: "open ~/github/qc/"
+          cmd: "open ~/Desktop/github/qc/"
 
 # --- Select and open a directory in github/ ---
   - trigger: ";cdgh"
@@ -41,7 +41,7 @@ matches:
       - name: available
         type: shell
         params:
-          cmd: "ls ~/github/"
+          cmd: "ls ~/Desktop/github/"
       - name: "form"
         type: form
         params:
@@ -53,7 +53,7 @@ matches:
       - name: output
         type: shell
         params:
-          cmd: "open -a Terminal.app; echo 'code ~/github/{{form.repo_name}}'"
+          cmd: "open -a Terminal.app; echo 'code ~/Desktop/github/{{form.repo_name}}'"
 
 # --- File Creation ---
   - trigger: ";file"

@@ -2,7 +2,7 @@ global_vars:
   - name: list_file
     type: echo
     params:
-      echo: "~/github/espanso/state/clipboard_list.md"
+      echo: "~/Desktop/github/espanso/state/clipboard_list.md"
 
 matches:
 # --- The trigger to add an item from the clipboard to the list ---

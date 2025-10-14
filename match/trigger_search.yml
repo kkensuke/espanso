@@ -2,7 +2,7 @@ global_vars:
   - name: trigger_index_file
     type: echo
     params:
-      echo: "~/github/espanso/state/trigger_index.json"
+      echo: "~/Desktop/github/espanso/state/trigger_index.json"
 
 matches:
 # --- Browse Triggers by File ---
