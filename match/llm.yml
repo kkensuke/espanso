@@ -1,9 +1,14 @@
 global_vars:
+  - name: gemini_model
+    type: echo
+    params:
+      echo: "gemini-2.5-flash-lite"
   - name: "gemini_api_call_template"
     type: echo
     params:
       echo: >
-            curl -s "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={{GEMINI_API_KEY}}" \
+            curl -s "https://generativelanguage.googleapis.com/v1beta/models/{{gemini_model}}:generateContent" \
+              -H "x-goog-api-key: {{GEMINI_API_KEY}}" \
               -H 'Content-Type: application/json' \
               -X POST \
               -d '{
