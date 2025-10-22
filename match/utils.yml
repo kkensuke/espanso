@@ -101,7 +101,7 @@ matches:
             jq -r '.[0] | "\(.word): \n" + (.meanings[0].definitions | map("- " + .definition) | join("\n"))'
 
 # --- Currency Conversion ---
-  - trigger: ";currency"
+  - trigger: ";ccv"
     replace: "{{conversion}}"
     vars:
       - name: form
@@ -114,10 +114,10 @@ matches:
           fields:
             from:
               type: choice
-              values: ["USD", "JPY", "CHF", "EUR", "GBP", "CNY", "KRW", "CAD", "AUD", "SGD", "HKD", "TWD"]
+              values: ["USD", "JPY", "CHF", "EUR", "CNY", "KRW", "CAD", "AUD", "SGD", "HKD", "TWD"]
             to:
               type: choice
-              values: ["JPY", "USD", "EUR", "CHF", "GBP", "CNY", "KRW", "CAD", "AUD", "SGD", "HKD", "TWD"]
+              values: ["JPY", "USD", "EUR", "CHF", "CNY", "KRW", "CAD", "AUD", "SGD", "HKD", "TWD"]
       - name: conversion
         type: shell
         params:
