@@ -6,7 +6,7 @@ exec > match/global_vars.yml
 
 # Converts a JSON file into an Espanso YAML configuration with global variables and triggers.
 # Usage: ./json_to_yml.sh
-JSON_FILE="$HOME/github/espanso/config/global_vars.json"
+JSON_FILE="$HOME/Desktop/github/espanso/config/global_vars.json"
 
 # Check if JSON file exists
 if [[ ! -f "$JSON_FILE" ]]; then

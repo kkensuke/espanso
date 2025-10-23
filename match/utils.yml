@@ -31,7 +31,7 @@ matches:
       - name: path
         type: echo
         params:
-          echo: "~/myLibrary/Application\\ Support/Code/User/settings.json"
+          echo: "~/Desktop/github/dotfiles/vscode/settings.json"
       - name: output
         type: shell
         params:
