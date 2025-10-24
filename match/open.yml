@@ -14,9 +14,9 @@ matches:
       - name: output
         type: shell
         params:
-          cmd: "open -a Terminal.app; echo 'code ~/Desktop/github/espanso/'"
+          cmd: "open -a Terminal.app; echo 'code $ESPANSO/'"
           # following commands deletes some letters from the file when you open it
-          # cmd: "code ~/Desktop/github/espanso/"
+          # cmd: "code $ESPANSO/"
 
   - trigger: ";blog"
     replace: "{{output}}\n"

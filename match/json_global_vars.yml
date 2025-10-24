@@ -2,7 +2,7 @@ global_vars:
   - name: global_vars_file
     type: echo
     params:
-      echo: "~/Desktop/github/espanso/config/global_vars.json"
+      echo: "$ESPANSO/config/global_vars.json"
 
 matches:
 # --- Get Variable Value from JSON ---

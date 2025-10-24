@@ -31,7 +31,7 @@ matches:
       - name: path
         type: echo
         params:
-          echo: "~/Desktop/github/dotfiles/vscode/settings.json"
+          echo: "$DOTFILES/vscode/settings.json"
       - name: output
         type: shell
         params:
@@ -50,7 +50,7 @@ matches:
       - name: path
         type: echo
         params:
-          echo: "~/Desktop/github/dotfiles/home/.aerospace.toml"
+          echo: "$DOTFILES/home/.aerospace.toml"
       - name: output
         type: shell
         params:

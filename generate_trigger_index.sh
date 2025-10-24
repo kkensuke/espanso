@@ -3,8 +3,8 @@
 # Script to create a JSON index of all espanso triggers by file
 # Usage: ./generate_trigger_index.sh
 
-MATCH_DIR="$HOME/Desktop/github/espanso/match"
-OUTPUT_FILE="$HOME/Desktop/github/espanso/state/trigger_index.json"
+MATCH_DIR="$ESPANSO/match"
+OUTPUT_FILE="$ESPANSO/state/trigger_index.json"
 
 # Check if match directory exists
 if [[ ! -d "$MATCH_DIR" ]]; then
