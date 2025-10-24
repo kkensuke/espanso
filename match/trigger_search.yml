@@ -2,7 +2,7 @@ global_vars:
   - name: trigger_index_file
     type: echo
     params:
-      echo: "$ESPANSO/state/trigger_index.json"
+      echo: "{{ESPANSO}}/state/trigger_index.json"
 
 matches:
 # --- Browse Triggers by File ---
@@ -98,7 +98,7 @@ matches:
             echo "🔄 Updating trigger index..."
             
             # Check if the generation script exists
-            script_path="$ESPANSO/generate_trigger_index.sh"
+            script_path="{{ESPANSO}}/generate_trigger_index.sh"
             if [[ -f "$script_path" ]]; then
                 bash "$script_path"
                 echo "✅ Trigger index updated successfully!"
