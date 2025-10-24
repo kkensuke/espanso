@@ -12,37 +12,33 @@
     "triggers": [
       ";amazon",
       ";claude",
-      ";clear",
       ";Espanso",
-      ";extension",
       ";fast",
       ";gai",
       ";ggl",
-      ";ggs",
       ";github",
       ";gpt",
       ";scholar",
       ";slack",
+      ";tab",
       ";you"
     ],
-    "count": 14
+    "count": 12
   },
   "emoji.yml": {
     "triggers": [
+      ";allemoji",
       ";bad",
       ";bow",
       ";clap",
       ";cmd",
       ";cry",
       ";ctrl",
-      ";dbt",
       ";die",
       ";downarrow",
       ";emoji",
       ";eyes",
-      ";facepalm",
       ";fire",
-      ";fp",
       ";glass",
       ";good",
       ";hexp",
@@ -54,6 +50,7 @@
       ";party",
       ";pc",
       ";pray",
+      ";really",
       ";rightarrow",
       ";sheep",
       ";shift",
@@ -70,7 +67,7 @@
       ";zk",
       ";zl"
     ],
-    "count": 40
+    "count": 39
   },
   "english_guideline.yml": {
     "triggers": [],
@@ -82,7 +79,7 @@
       ";excuse",
       ";genpw",
       ";hash",
-      ";ip",
+      ";myip",
       ";secpw",
       ";shell",
       ";uuid"
@@ -97,6 +94,21 @@
       ";todo"
     ],
     "count": 4
+  },
+  "global_vars_examples.yml": {
+    "triggers": [
+      ";ANTHROPIC_API_KEY",
+      ";backup",
+      ";blog_url",
+      ";GEMINI_API_KEY",
+      ";mail",
+      ";name",
+      ";OPENAI_API_KEY",
+      ";phone",
+      ";portfolio",
+      ";projects"
+    ],
+    "count": 10
   },
   "japanese_guideline.yml": {
     "triggers": [],
@@ -114,39 +126,17 @@
     ],
     "count": 7
   },
-  "latex.yml": {
-    "triggers": [
-      ";align",
-      ";bold",
-      ";fr",
-      ";ldef",
-      ";lem",
-      ";lfig",
-      ";lit",
-      ";llem",
-      ";lmini",
-      ";ltable",
-      ";lth"
-    ],
-    "count": 11
-  },
   "llm.yml": {
     "triggers": [
-      ";bullet",
       ";efix",
       ";ejt",
       ";eprf",
-      ";extract",
-      ";how",
       ";jet",
       ";jfix",
       ";jprf",
-      ";mail",
-      ";plot",
-      ";rephrase",
-      ";summarize"
+      ";rephrase"
     ],
-    "count": 13
+    "count": 7
   },
   "math.yml": {
     "triggers": [
@@ -188,6 +178,7 @@
       ";lll",
       ";m(?P<num1>.*),(?P<num2>.*);",
       ";mapsto",
+      ";mathpi",
       ";mu",
       ";nabla",
       ";nelem",
@@ -200,7 +191,6 @@
       ";partial",
       ";phi",
       ";Phi",
-      ";pi",
       ";Pi",
       ";pm",
       ";pow(?P<num1>.*),(?P<num2>.*);",
@@ -240,26 +230,23 @@
       ";adm",
       ";bg",
       ";break",
-      ";mdcode",
-      ";mdlink"
+      ";mdcode"
     ],
-    "count": 5
+    "count": 4
   },
   "open.yml": {
     "triggers": [
       ";blog",
       ";cdgh",
-      ";dotfile",
       ";espanso",
+      ";file",
       ";memo",
-      ";newfile",
-      ";notion",
       ";quantum",
       ";tml",
       ";tomd",
       ";url(?P<name>.*);"
     ],
-    "count": 11
+    "count": 9
   },
   "physics.yml": {
     "triggers": [
@@ -327,16 +314,16 @@
   },
   "utils.yml": {
     "triggers": [
+      ";ccv",
       ";clippath",
-      ";currency",
       ";definition",
+      ";gap",
       ";invert",
       ";local",
       ";nodl",
       ";repotext",
       ";short",
-      ";speak",
-      ";yttext"
+      ";speak"
     ],
     "count": 10
   }

@@ -1,5 +1,2 @@
-global_vars.yml
-global_vars.json
-trigger_index.json
-clipboard_list.md
 dev/
+ignore/

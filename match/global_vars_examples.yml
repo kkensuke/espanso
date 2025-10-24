@@ -1,0 +1,84 @@
+# ========================================
+# Auto-generated from global_vars.json
+# Generated on: Sat Oct 25 01:47:57 JST 2025
+# ========================================
+
+global_vars:
+  # --- API_KEYS ---
+  - name: "GEMINI_API_KEY"
+    type: echo
+    params:
+      echo: "your_gemini_api_key_here"
+  - name: "OPENAI_API_KEY"
+    type: echo
+    params:
+      echo: "your_openai_api_key_here"
+  - name: "ANTHROPIC_API_KEY"
+    type: echo
+    params:
+      echo: "your_anthropic_api_key_here"
+
+  # --- URLS ---
+  - name: "blog_url"
+    type: echo
+    params:
+      echo: "https://yourblog.com"
+  - name: "portfolio"
+    type: echo
+    params:
+      echo: "https://yourportfolio.com"
+
+  # --- PATHS ---
+  - name: "projects"
+    type: echo
+    params:
+      echo: "~/path/to/projects"
+  - name: "backup"
+    type: echo
+    params:
+      echo: "~/path/to/backups"
+
+  # --- PERSONAL ---
+  - name: "name"
+    type: echo
+    params:
+      echo: "Your Name"
+  - name: "mail"
+    type: echo
+    params:
+      echo: "your.email@example.com"
+  - name: "phone"
+    type: echo
+    params:
+      echo: "+1-234-567-8900"
+
+
+matches:
+# --- API_KEYS ---
+  - trigger: ";GEMINI_API_KEY"
+    replace: "{{GEMINI_API_KEY}}"
+  - trigger: ";OPENAI_API_KEY"
+    replace: "{{OPENAI_API_KEY}}"
+  - trigger: ";ANTHROPIC_API_KEY"
+    replace: "{{ANTHROPIC_API_KEY}}"
+
+# --- URLS ---
+  - trigger: ";blog_url"
+    replace: "{{blog_url}}"
+  - trigger: ";portfolio"
+    replace: "{{portfolio}}"
+
+# --- PATHS ---
+  - trigger: ";projects"
+    replace: "{{projects}}"
+  - trigger: ";backup"
+    replace: "{{backup}}"
+
+# --- PERSONAL ---
+  - trigger: ";name"
+    replace: "{{name}}"
+  - trigger: ";mail"
+    replace: "{{mail}}"
+  - trigger: ";phone"
+    replace: "{{phone}}"
+

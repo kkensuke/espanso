@@ -1,3 +1,6 @@
+imports:
+  - "../ignore/global_vars.yml"
+
 global_vars:
   - name: "clipboard"
     type: "clipboard"
