@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# export ESPANSO="path/to/espanso"
 
-exec > match/global_vars_examples.yml
+exec > $ESPANSO/match/global_vars_examples.yml
 
 # Converts a JSON file into an Espanso YAML configuration with global variables and triggers.
 # Usage: ./json_to_yml.sh
-JSON_FILE="config/global_vars_examples.json"
+JSON_FILE="$ESPANSO/config/global_vars_examples.json"
 
 # Check if JSON file exists
 if [[ ! -f "$JSON_FILE" ]]; then

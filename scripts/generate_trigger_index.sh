@@ -1,7 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Script to create a JSON index of all espanso triggers by file
 # Usage: ./generate_trigger_index.sh
+
+# export ESPANSO="path/to/espanso"
 
 MATCH_DIR="$ESPANSO/match"
 OUTPUT_FILE="$ESPANSO/state/trigger_index.json"

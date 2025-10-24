@@ -130,10 +130,10 @@ All clipboard items are stored in `state/clipboard_list.md` with timestamps for 
 The repository includes powerful tools for managing and discovering your triggers:
 
 ### Trigger Indexing
-Run the `generate_trigger_index.sh` script to create a comprehensive JSON index of all your triggers:
+Run the `scripts/generate_trigger_index.sh` script to create a comprehensive JSON index of all your triggers:
 
 ```bash
-sh generate_trigger_index.sh
+sh scripts/generate_trigger_index.sh
 ```
 
 This script:
@@ -174,10 +174,10 @@ The `json_global_vars.yml` file allows you to manage global variables dynamicall
 | `;delvar`    | Delete a specific variable |
 
 ### JSON to YAML Conversion
-Use the `json_to_yml.sh` script to convert your JSON configuration to YAML format:
+Use the `scripts/json_to_yml.sh` script to convert your JSON configuration to YAML format:
 
 ```bash
-sh json_to_yml.sh
+sh scripts/json_to_yml.sh
 ```
 
 This script:
@@ -191,13 +191,13 @@ Both `config/global_vars.json` and `match/global_vars.yml` should be added to yo
 
 ## 🛠️ Helper Scripts
 
-### `generate_trigger_index.sh`
+### `scripts/generate_trigger_index.sh`
 - **Purpose**: Creates a searchable JSON index of all triggers across your configuration files
 - **Output**: `state/trigger_index.json` with trigger counts and file organization
 - **Features**: Supports simple triggers, trigger arrays, and regex patterns
 - **Usage**: Run manually or via `;updatetrigger` to refresh the index
 
-### `json_to_yml.sh`
+### `scripts/json_to_yml.sh`
 - **Purpose**: Converts JSON global variables to Espanso YAML format
 - **Input**: `config/global_vars.json`
 - **Output**: Properly formatted YAML for use as `match/global_vars.yml`
@@ -236,15 +236,16 @@ Both `config/global_vars.json` and `match/global_vars.yml` should be added to yo
 │   ├── clipboard_list_examples.md       # Example saved clipboard items
 │   ├── state_focus.txt                  # Current work/personal state
 │   └── trigger_index_examples.json      # Example generated trigger index
-├── generate_trigger_index.sh            # Script to index all triggers
-└── json_to_yml.sh                       # Script to convert JSON to Espanso global variables (YAML)
+└── scripts/                             # Helper scripts
+    ├── generate_trigger_index.sh        # Script to index all triggers
+    └── json_to_yml.sh                   # Script to convert JSON to Espanso global variables (YAML)
 ```
 
 ## 🎯 Getting Started Tips
 
 1. **Start Small**: Begin with basic triggers like `;date`, `;gpt`, and `;case` to get familiar
 2. **Set Up Clipboard Management**: Use `;additem` to start building your clipboard history
-3. **Index Your Triggers**: Run `generate_trigger_index.sh` and use `;triggers` to explore available snippets
+3. **Index Your Triggers**: Run `scripts/generate_trigger_index.sh` and use `;triggers` to explore available snippets
 4. **Configure Global Variables**: Create your `config/global_vars.json` for personalized snippets
 5. **Explore by Category**: Use `;triggerfiles` to see what's available in each file
 6. **Customize for Your Workflow**: Modify triggers and add your own based on your specific needs
