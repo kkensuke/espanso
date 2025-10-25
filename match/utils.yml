@@ -112,6 +112,8 @@ matches:
                   From: [[from]]
                   To: [[to]]
           fields:
+            amount:
+              default: "100"
             from:
               type: choice
               values: ["USD", "JPY", "CHF", "EUR", "CNY", "KRW", "CAD", "AUD", "SGD", "HKD", "TWD"]

@@ -69,6 +69,7 @@ matches:
             Include Symbols: [[symbols]]
           fields:
             length:
+              default: "20"
               type: choice
               values: ["16", "20", "24"]
             symbols:
