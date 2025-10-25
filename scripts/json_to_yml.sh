@@ -16,7 +16,7 @@ if [[ ! -f "$JSON_FILE" ]]; then
 fi
 
 echo "# ========================================"
-echo "# Auto-generated from global_vars.json"
+echo "# Auto-generated from global_vars_examples.json"
 echo "# Generated on: $(LC_TIME=C date)"
 echo "# ========================================"
 echo ""
