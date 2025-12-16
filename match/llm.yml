@@ -27,6 +27,8 @@ matches:
     replace: "Please review the following guidelines and then proofread the sentence provided at the end:\n\n{{english_guideline}}\n\nSentence to proofread:"
   - trigger: ";jprf"
     replace: "次のガイドラインを確認し、最後に与えられる文章を校正してください：\n\n{{japanese_guideline}}\n\n校正する文章："
+  - trigger: ";kz"
+    replace: "構造化して整理して。"
 
 # ——— Translate Clipboard → Japanese ———
   - trigger: ";ejt"
