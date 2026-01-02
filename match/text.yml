@@ -8,6 +8,10 @@ matches:
     replace: "よろしくお願いいたします。"
   - trigger: ";sama"
     replace: "お疲れ様です。"
+  - trigger: ";yno"
+    replace: "you no '$|$'"
+  - trigger: ";draft"
+    replace: "Check the following draft of research paper. Prioritize quality, even if it takes some time."
 
 # --- Placeholder Text ---
   - trigger: ";lorem"
