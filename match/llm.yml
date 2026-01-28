@@ -2,7 +2,7 @@ global_vars:
   - name: gemini_model
     type: echo
     params:
-      echo: "gemini-2.5-flash-lite"
+      echo: "gemini-flash-lite-latest"
   - name: "gemini_api_call_template"
     type: echo
     params:
