@@ -1,8 +1,6 @@
 {
   "api_keys": {
-    "GEMINI_API_KEY": "your_gemini_api_key_here",
-    "OPENAI_API_KEY": "your_openai_api_key_here",
-    "ANTHROPIC_API_KEY": "your_anthropic_api_key_here"
+    "YOUR_GEMINI_API_KEY": "your_gemini_api_key_here"
   },
   "urls": {
     "blog_url": "https://yourblog.com",
@@ -13,8 +11,8 @@
     "backup": "~/path/to/backups"
   },
   "personal": {
-    "name": "Your Name",
-    "mail": "your.email@example.com",
-    "phone": "+1-234-567-8900"
+    "your_name": "Your Name",
+    "your_mail": "your.email@example.com",
+    "your_phone": "+1-234-567-8900"
   }
 }

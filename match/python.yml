@@ -1,4 +1,7 @@
 matches:
+  - trigger: ";uvinit"
+    replace: "uv init; uv add numpy matplotlib ipykernel pennylane-lightning"
+
   - trigger: ";np"
     replace: "import numpy as np"
 
