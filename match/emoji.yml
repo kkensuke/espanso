@@ -40,7 +40,7 @@ matches:
     replace: "🧑‍💻"
   - triggers: [";bow",";emoji"]
     replace: "🙇"
-  - triggers: [";bow",";emoji"]
+  - triggers: [";sorry",";emoji"]
     replace: "🙇‍♂️"
   - triggers: [";smile",";emoji"]
     replace: "😊"
