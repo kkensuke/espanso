@@ -65,11 +65,24 @@ matches:
           cmd: |
             text="{{clipboard}}"
             case "{{form.style}}" in
-              "UPPERCASE")  echo "$text" | tr '[:lower:]' '[:upper:]';;
-              "lowercase")  echo "$text" | tr '[:upper:]' '[:lower:]';;
-              "PascalCase") echo "$text" | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) tolower(substr($i,2));}1' | tr -d ' ';;
-              "camelCase")  echo "$text" | awk '{out=tolower($1); for(i=2;i<=NF;i++){out=out toupper(substr($i,1,1)) tolower(substr($i,2))}; print out}';;
-              "Title Case") echo "$text" | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) tolower(substr($i,2));}1';;
-              "kebab-case") echo "$text" | sed -E 's/[^a-zA-Z0-9 ]+//g' | tr '[:upper:]' '[:lower:]' | tr -s ' ' '-';;
-              "snake_case") echo "$text" | sed -E 's/[^a-zA-Z0-9 ]+//g' | tr '[:upper:]' '[:lower:]' | tr -s ' ' '_';;
+              "UPPERCASE")  res=$(echo "$text" | tr '[:lower:]' '[:upper:]') ;;
+              "lowercase")  res=$(echo "$text" | tr '[:upper:]' '[:lower:]') ;;
+              "PascalCase") res=$(echo "$text" | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) tolower(substr($i,2));}1' | tr -d ' ') ;;
+              "camelCase")  res=$(echo "$text" | awk '{out=tolower($1); for(i=2;i<=NF;i++){out=out toupper(substr($i,1,1)) tolower(substr($i,2))}; print out}') ;;
+              "Title Case") res=$(echo "$text" | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) tolower(substr($i,2));}1') ;;
+              "kebab-case") res=$(echo "$text" | sed -E 's/[^a-zA-Z0-9 ]+//g' | tr '[:upper:]' '[:lower:]' | tr -s ' ' '-') ;;
+              "snake_case") res=$(echo "$text" | sed -E 's/[^a-zA-Z0-9 ]+//g' | tr '[:upper:]' '[:lower:]' | tr -s ' ' '_') ;;
             esac
+
+            # --- COPY TO CLIPBOARD SECTION ---
+            # For macOS:
+            echo -n "$res" | pbcopy
+            
+            # For Linux (uncomment the line below and comment out the pbcopy line):
+            # echo -n "$res" | xclip -selection clipboard
+
+            # For Windows (uncomment the line below if using Git Bash/WSL):
+            # echo -n "$res" | clip
+            
+            # Output the result so Espanso pastes it
+            echo -n "$res"

@@ -48,7 +48,7 @@ matches:
         params:
           cmd: "{{tabchange}}"
 
-  - trigger: ";github"
+  - trigger: ";git"
     replace: "{{output}}"
     vars:
       - name: "url"
@@ -119,6 +119,14 @@ matches:
         type: shell
         params:
           cmd: "open 'https://fast.com/'"
+
+  - trigger: ";mer"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "open 'https://jp.mercari.com/'"
 
   - trigger: ";Espanso"
     replace: "{{output}}"
