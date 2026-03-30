@@ -1,3 +1,11 @@
+global_vars:
+  - name: "open_with_vscode"
+    type: echo
+    params:
+      echo: "open -a Terminal.app; echo 'code {{path}}'"
+          # following commands deletes some letters from the file when you open it
+          # cmd: "code {{path}}"
+
 matches:
 # --- Open terminal, files, or directories ---
   - trigger: ";tml"
@@ -11,22 +19,44 @@ matches:
   - trigger: ";espanso"
     replace: "{{output}}\n"
     vars:
+      # - name: output
+      #   type: shell
+      #   params:
+      #     cmd: "open -a Terminal.app; echo 'code {{ESPANSO}}'"
+      - name: path
+        type: echo
+        params:
+          echo: "{{ESPANSO}}"
       - name: output
         type: shell
         params:
-          cmd: "open -a Terminal.app; echo 'code {{ESPANSO}}/'"
-          # following commands deletes some letters from the file when you open it
-          # cmd: "code {{ESPANSO}}/"
+          cmd: "{{open_with_vscode}}"
 
   - trigger: ";blog"
     replace: "{{output}}\n"
     vars:
+      - name: path
+        type: echo
+        params:
+          echo: "~/website/nextjs-blog-tutorial/"
       - name: output
         type: shell
         params:
-          cmd: "open -a Terminal.app; echo 'code ~/website/nextjs-blog-tutorial/'"
+          cmd: "{{open_with_vscode}}"
 
-  - trigger: ";quantum"
+  - trigger: ";notion"
+    replace: "{{output}}\n"
+    vars:
+      - name: path
+        type: echo
+        params:
+          echo: "/Volumes/notion/notion/"
+      - name: output
+        type: shell
+        params:
+          cmd: "{{open_with_vscode}}"
+
+  - trigger: ";quant"
     replace: "{{output}}"
     vars:
       - name: output
@@ -65,21 +95,13 @@ matches:
           cmd: "open -a Terminal.app; echo 'code {{GITHUB}}/{{form.repo_name}}'"
 
 # --- File Creation ---
-  - trigger: ";file"
-    replace: "{{output}}"
-    vars:
-      - name: output
-        type: shell
-        params:
-          cmd: "cd ~/Desktop/temp/; touch 0.md; open -a 'Visual Studio Code.app' 0.md"
-
   - trigger: ";memo"
-    replace: "{{output}}"
+    replace: "{{output}}\n"
     vars:
       - name: output
         type: shell
         params:
-          cmd: "echo '- {{now}}: {{clipboard}}' >> ~/Desktop/memo.md"
+          cmd: "cd ~/Desktop/temp/; touch memo.md; open -a Terminal.app; echo 'code ~/Desktop/temp/memo.md'"
 
 # --- Create .url file from clipboard URL ---
   - regex: ";url(?P<name>.*);" # input: ;urlname; → output: name.url
