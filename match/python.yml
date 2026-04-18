@@ -1,6 +1,9 @@
 matches:
   - trigger: ";uvinit"
-    replace: "uv init; uv add numpy matplotlib ipykernel pennylane-lightning"
+    replace: "uv init; uv add numpy matplotlib ipykernel jupyter_server"
+
+  - trigger: ";acv"
+    replace: "acv='source venv/bin/activate'"
 
   - trigger: ";np"
     replace: "import numpy as np"

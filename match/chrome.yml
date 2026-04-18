@@ -12,6 +12,18 @@ matches:
         params:
           cmd: "{{tabchange}}"
 
+  - trigger: ";gemini"
+    replace: "{{output}}"
+    vars:
+      - name: "url"
+        type: echo
+        params:
+          echo: gemini.google.com/app
+      - name: output
+        type: shell
+        params:
+          cmd: "{{tabchange}}"
+
   - trigger: ";gpt"
     replace: "{{output}}"
     vars:
