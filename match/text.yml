@@ -12,6 +12,8 @@ matches:
     replace: "you no '$|$'"
   - trigger: ";yj"
     replace: "you ja '$|$'"
+  - trigger: ";emd"
+    replace: "マークダウンで抜き出して"
   - trigger: ";draft"
     replace: "Check the following draft of research paper. Prioritize quality, even if it takes some time."
 

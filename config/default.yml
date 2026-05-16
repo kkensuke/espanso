@@ -8,5 +8,5 @@
 show_icon: false
 clipboard_threshold: 1000
 undo_backspace: false
-search_trigger: ".espanso"
+search_trigger: ".esp"
 search_shortcut: off

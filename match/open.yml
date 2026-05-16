@@ -44,18 +44,6 @@ matches:
         params:
           cmd: "{{open_with_vscode}}"
 
-  - trigger: ";notion"
-    replace: "{{output}}\n"
-    vars:
-      - name: path
-        type: echo
-        params:
-          echo: "/Volumes/notion/notion/"
-      - name: output
-        type: shell
-        params:
-          cmd: "{{open_with_vscode}}"
-
   - trigger: ";quant"
     replace: "{{output}}"
     vars:

@@ -1,5 +1,5 @@
 matches:
-  - trigger: ";mdcode"
+  - trigger: ";code"
     replace: |
           ```
           {{clipboard}}
