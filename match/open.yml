@@ -32,18 +32,6 @@ matches:
         params:
           cmd: "{{open_with_vscode}}"
 
-  - trigger: ";blog"
-    replace: "{{output}}\n"
-    vars:
-      - name: path
-        type: echo
-        params:
-          echo: "~/website/nextjs-blog-tutorial/"
-      - name: output
-        type: shell
-        params:
-          cmd: "{{open_with_vscode}}"
-
   - trigger: ";quant"
     replace: "{{output}}"
     vars:
