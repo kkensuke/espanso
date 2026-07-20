@@ -49,6 +49,16 @@ matches:
         params:
           cmd: "echo -n {{clipboard}} | wc -w | tr -d '[:space:]'"
 
+# Enclose the preceding word in quotation marks.
+# hello:q → "hello"
+  - regex: '(?P<text>\S+);qt'
+    replace: '"{{text}}"'
+
+# Enclose the preceding word in backticks.
+# command:code → `command`
+  - regex: '(?P<text>\S+);bt'
+    replace: '`{{text}}`'
+
 # --- Text Case Style Converter (Form) ---
   - trigger: ";case"
     replace: "{{output}}"
@@ -79,12 +89,12 @@ matches:
             # --- COPY TO CLIPBOARD SECTION ---
             # For macOS:
             echo -n "$res" | pbcopy
-            
+
             # For Linux (uncomment the line below and comment out the pbcopy line):
             # echo -n "$res" | xclip -selection clipboard
 
             # For Windows (uncomment the line below if using Git Bash/WSL):
             # echo -n "$res" | clip
-            
+
             # Output the result so Espanso pastes it
             echo -n "$res"

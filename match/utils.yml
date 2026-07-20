@@ -3,7 +3,7 @@ matches:
     replace: "localhost:3000/"
 
 # --- Copy Finder Path ---
-  - trigger: ";clippath"
+  - trigger: ";path"
     replace: "{{output}}"
     vars:
       - name: finder_path
