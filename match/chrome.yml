@@ -180,6 +180,14 @@ matches:
         params:
           cmd: "open 'https://fast.com/'"
 
+  - trigger: ";dhis"
+    replace: "{{output}}\n"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "open -a 'Google Chrome' 'chrome://settings/clearBrowserData'"
+
   - trigger: ";mer"
     replace: "{{output}}"
     vars:

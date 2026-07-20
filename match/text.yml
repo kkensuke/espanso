@@ -49,13 +49,18 @@ matches:
         params:
           cmd: "echo -n {{clipboard}} | wc -w | tr -d '[:space:]'"
 
+# Enclose the clipboard content in 「」.
+# hello;qc → 「hello」
+  - trigger: ";qc"
+    replace: "「{{clipboard}}」"
+
 # Enclose the preceding word in quotation marks.
-# hello:q → "hello"
+# hello;qt → "hello"
   - regex: '(?P<text>\S+);qt'
     replace: '"{{text}}"'
 
 # Enclose the preceding word in backticks.
-# command:code → `command`
+# command;bt → `command`
   - regex: '(?P<text>\S+);bt'
     replace: '`{{text}}`'
 

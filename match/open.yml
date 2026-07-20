@@ -94,9 +94,9 @@ matches:
             - Webpage to Markdown Conversion by https://urltomarkdown.herokuapp.com/
             - Source URL: {{clipboard}}
             - Conversion Timestamp: {{now}}
-            
+
             ===================================================
-            
+
             {{output}}
     vars:
       - name: output

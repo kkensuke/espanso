@@ -22,10 +22,20 @@ global_vars:
 matches:
   - trigger: ";global_var"
     replace: "{{global_var}}"
+
   - trigger: ";date"
     replace: "{{today}}"
+
   - trigger: ";now"
     replace: "{{now}}"
+
+  - trigger: ";er"
+    replace: "{{output}}\n"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "open -a Terminal.app; echo 'espanso restart'"
 
   - trigger: ";state;focus"
     replace: "{{output}}"
