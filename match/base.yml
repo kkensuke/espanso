@@ -1,6 +1,7 @@
 imports:
   - "../ignore/global_vars.yml"
   - "../ignore/others.yml"
+  - "../ignore/asdf.yml"
 
 global_vars:
   - name: "clipboard"

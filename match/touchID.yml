@@ -1,0 +1,26 @@
+# This trigger uses `kctouch`, a command-line tool that manages secrets
+# from the macOS Keychain after Touch ID authentication.
+#
+# Install `kctouch` before using this match.
+#
+# Choose any service name and account name, then add a password to the
+# Keychain with the command below. Replace `YOUR_SERVICE_NAME` and
+# `YOUR_ACCOUNT_NAME` with names of your choice.
+# You will be prompted to enter the password interactively:
+#
+# `kctouch add --service "YOUR_SERVICE_NAME" --account "YOUR_ACCOUNT_NAME"`
+#
+# Use the same service and account names in the `get` command below.
+#
+# For installation instructions and usage details, see:
+# https://github.com/rgeraskin/kctouch
+
+matches:
+  - trigger: ";touchid"
+    replace: "{{output}}"
+    force_mode: keys
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "kctouch get --service 'YOUR_SERVICE_NAME' --account 'YOUR_ACCOUNT_NAME'"
