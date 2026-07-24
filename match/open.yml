@@ -2,27 +2,40 @@ global_vars:
   - name: "open_with_vscode"
     type: echo
     params:
-      echo: "open -a Terminal.app; echo 'code {{path}}'"
+      echo: "open -a Terminal; echo 'code {{path}}'"
           # following commands deletes some letters from the file when you open it
           # cmd: "code {{path}}"
 
 matches:
-# --- Open terminal, files, or directories ---
+# --- Open applications ---
   - trigger: ";tml"
     replace: "{{output}}"
     vars:
       - name: output
         type: shell
         params:
-          cmd: "open -a Terminal.app"
+          cmd: "open -a Terminal"
 
+  - trigger: ";line"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "open -a LINE"
+
+  - trigger: ";enc"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "open -a Cryptomator"
+
+# --- Open files, or directories ---
   - trigger: ";espanso"
     replace: "{{output}}\n"
     vars:
-      # - name: output
-      #   type: shell
-      #   params:
-      #     cmd: "open -a Terminal.app; echo 'code {{ESPANSO}}'"
       - name: path
         type: echo
         params:
@@ -39,15 +52,6 @@ matches:
         type: shell
         params:
           cmd: "open {{GITHUB}}/qc/"
-
-# --- Open applications ---
-  - trigger: ";line"
-    replace: "{{output}}"
-    vars:
-      - name: output
-        type: shell
-        params:
-          cmd: "open -a LINE.app"
 
 # --- Select and open a directory in github/ ---
   - trigger: ";cdgh"
@@ -68,7 +72,7 @@ matches:
       - name: output
         type: shell
         params:
-          cmd: "open -a Terminal.app; echo 'code {{GITHUB}}/{{form.repo_name}}'"
+          cmd: "open -a Terminal; echo 'code {{GITHUB}}/{{form.repo_name}}'"
 
 # --- File Creation ---
   - trigger: ";memo"
@@ -77,7 +81,7 @@ matches:
       - name: output
         type: shell
         params:
-          cmd: "cd ~/Desktop/temp/; touch memo.md; open -a Terminal.app; echo 'code ~/Desktop/temp/memo.md'"
+          cmd: "cd ~/Desktop/temp/; touch memo.md; open -a Terminal; echo 'code ~/Desktop/temp/memo.md'"
 
 # --- Create .url file from clipboard URL ---
   - regex: ";url(?P<name>.*);" # input: ;urlname; → output: name.url

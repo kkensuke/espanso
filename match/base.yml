@@ -36,7 +36,7 @@ matches:
       - name: output
         type: shell
         params:
-          cmd: "open -a Terminal.app; echo 'espanso restart'"
+          cmd: "open -a Terminal; echo 'espanso restart'"
 
   - trigger: ";state;focus"
     replace: "{{output}}"
