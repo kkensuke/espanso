@@ -24,14 +24,6 @@ matches:
         params:
           cmd: "open -a LINE"
 
-  - trigger: ";enc"
-    replace: "{{output}}"
-    vars:
-      - name: output
-        type: shell
-        params:
-          cmd: "open -a Cryptomator"
-
 # --- Open files, or directories ---
   - trigger: ";espanso"
     replace: "{{output}}\n"
