@@ -2,6 +2,23 @@ matches:
   - trigger: ";local"
     replace: "localhost:3000/"
 
+# --- Hide/show all desktop icons ---
+  - trigger: ";dhide"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+
+  - trigger: ";dshow"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+
 # --- Copy Finder Path ---
   - trigger: ";path"
     replace: "{{output}}"

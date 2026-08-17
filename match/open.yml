@@ -2,7 +2,7 @@ global_vars:
   - name: "open_with_vscode"
     type: echo
     params:
-      echo: "open -a Terminal; echo 'code {{path}}'"
+      echo: "if [[ -d {{path}} ]]; then open -a Terminal; echo 'code {{path}}'; fi"
           # following commands deletes some letters from the file when you open it
           # cmd: "code {{path}}"
 
@@ -15,6 +15,14 @@ matches:
         type: shell
         params:
           cmd: "open -a Terminal"
+
+  - trigger: ";cam"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "open -a Shottr; open -a 'Hand Mirror'"
 
   - trigger: ";line"
     replace: "{{output}}"
