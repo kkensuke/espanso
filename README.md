@@ -1,253 +1,280 @@
 # My Espanso Configuration
 
-This repository contains a personal collection of powerful [Espanso](https://espanso.org/) snippets designed to boost productivity in coding, writing, and daily tasks. It heavily leverages shell scripting, LLM APIs, and application automation to create a highly efficient workflow on macOS.
+Personal [Espanso](https://espanso.org/) configuration for macOS, with snippets for writing, coding, browser/app shortcuts, scientific notation, clipboard workflows, and LLM-assisted text processing.
 
+> [!NOTE]
+> This is a personal configuration rather than a plug-and-play Espanso package. Several matches assume macOS, specific applications, custom directory layouts, or private global variables. Review the files you want to use and adapt paths/apps to your environment.
 
-## ✨ Key Features
-- **🤖 LLM‑Powered Workflows**: Direct integration with the Google Gemini API for on‑the‑fly translation, grammar correction, rephrasing, summarization, and custom prompts — all without leaving your current application.
-- **🚀 Application & Web Automation**: Smartly switch to existing browser tabs (or open new ones) for frequently used sites like ChatGPT, GitHub, and Slack. Quickly open project folders in your editor or terminal.
-- **📋 Clipboard Management**: Save, organize, and retrieve clipboard content with persistent storage and easy management.
-- **🔍 Trigger Discovery**: Automatically index and search through all your triggers across files for easy discovery and management.
-- **⚙️ Configuration Management**: Tools for managing global variables and converting between JSON and YAML formats.
-- **🛠️ Powerful Utilities**: A suite of tools at your fingertips, including:
-    - Opening URLs with search queries from the clipboard (`chrome.yml`)
-    - Opening repositories in VS Code (`open.yml`)
-    - Creating new files (`open.yml`)
-    - Text case conversion (`text.yml`)
-    - Copying POSIX paths of files/folders (`utils.yml`)
-    - Password, UUID, and hash generators (`example.yml`)
-    - URL shortener (`utils.yml`)
-    - Basic math calculations (`math.yml`)
-    - Dictionary lookup (`utils.yml`)
-    - Currency converter (`utils.yml`)
-    - And more
+## Highlights
 
+- **LLM workflows with Google Gemini** — translate clipboard text, rephrase scientific writing, and build proofreading prompts.
+- **Text and writing helpers** — Japanese greetings, character/word counts, case conversion, quoting, Markdown snippets, and reusable forms.
+- **Browser and application shortcuts** — open Google, ChatGPT, Gemini, Claude, GitHub, Google Scholar, Terminal, and other apps/sites.
+- **Clipboard list** — append, display, delete, and clear saved clipboard entries in a private file under `ignore/`.
+- **JSON-backed variables** — browse and edit categorized values stored in `config/global_vars.json`.
+- **Scientific/coding snippets** — Python templates, math symbols, Greek letters, and quantum-state notation.
+- **macOS automation** — Finder path copying, desktop icon toggling, `hidutil`, AppleScript, and other shell-based utilities.
+- **Touch ID / Keychain example** — retrieve a secret through `kctouch` after Touch ID authentication.
 
-## 🚀 Installation & Setup
-### 1. Install Espanso
-First, make sure Espanso is installed on your system. See the [official Espanso installation guide](https://espanso.org/install/).
+## Requirements
 
+### Core
 
-### 2. Configuration
-Copy any triggers you want from this repository into your Espanso configuration directory. To find your current config path, run:
+- [Espanso](https://espanso.org/)
+- macOS for many of the included shell/automation matches
+- `jq`
+- `curl`
 
-```bash
-espanso path
-```
-
-On macOS, the default path is usually:
-
-```
-$HOME/Library/Application Support/espanso/match/base.yml
-```
-
-By default you only have `base.yml` in your `match/` directory, but you can add more `.yml` files to organize your snippets. Espanso will load them all automatically.
-
-
-### 3. Set Up Dependencies
-This repository relies on a few command‑line tools. If you use [Homebrew](https://brew.sh) on macOS, install them with:
+With Homebrew:
 
 ```bash
 brew install jq
 ```
 
-It also uses macOS‑specific tools like `osascript` and `open`.
+Many snippets use macOS commands such as `open`, `osascript`, `pbcopy`, `pbpaste`, `defaults`, `hidutil`, and BSD `sed`.
 
+### Optional tools and apps
 
-### ⚠️ 4. Add Your Gemini API Key
-Many powerful snippets (translation, proofreading, etc.) use the Google Gemini API. To add your key:
-1. Get a free API key from [Google AI Studio](https://aistudio.google.com/app/apikey).
-2. Make `match/params.yml` and paste the `GEMINI_API_KEY` global variable there.
-3. Replace the `YOUR_REAL_GEMINI_API_KEY_HERE` with your actual key:
+Only install these if you use the corresponding snippets:
+
+- `kctouch` for `match/touchID.yml`
+- VS Code and the `code` CLI for project-opening snippets
+- `python3` for repository/text helpers
+- `uv` for the `;uvinit` Python trigger
+- Aerospace for the `;gap` utility
+- Google Chrome for the AppleScript-based new-tab trigger
+- Personal apps referenced in `match/open.yml`, such as Shottr, Hand Mirror, and LINE
+
+Some example snippets also rely on common Unix utilities that may differ between macOS and Linux. Check the shell command in the relevant match before using it on another platform.
+
+## Installation
+
+### 1. Install Espanso
+
+Install Espanso using the [official installation guide](https://espanso.org/install/).
+
+Find your active configuration paths with:
+
+```bash
+espanso path
+```
+
+This repository mirrors an Espanso configuration root with `config/`, `match/`, and supporting directories. Back up your existing configuration before replacing it, or copy only the files you want to use.
+
+### 2. Set up private files
+
+`match/base.yml` currently imports three files that intentionally live outside version control:
 
 ```yaml
-# In match/params.yml
+imports:
+  - "../ignore/global_vars.yml"
+  - "../ignore/others.yml"
+  - "../ignore/asdf.yml"
+```
+
+The repository `.gitignore` excludes the entire `ignore/` directory, so it is the intended place for machine-specific variables, private snippets, and local state.
+
+Create the imported files you use, or remove unused imports from `match/base.yml`. Several matches reference personal globals such as:
+
+- `ESPANSO` — path used by local state/config helpers
+- `GITHUB` — local GitHub/projects directory
+- `DOTFILES` — local dotfiles directory
+- `GEMINI_API_KEY` — Google Gemini API key
+
+Because some shell commands interpolate these variables directly, adapt the paths and quoting to your environment.
+
+### 3. Configure Gemini (optional)
+
+`match/llm.yml` uses the Gemini API through `curl` and parses responses with `jq`. The current model setting is:
+
+```yaml
+gemini-flash-lite-latest
+```
+
+If you want to use the LLM triggers, obtain an API key from [Google AI Studio](https://aistudio.google.com/app/apikey) and define `GEMINI_API_KEY` in an ignored file such as `ignore/global_vars.yml`:
+
+```yaml
 global_vars:
   - name: GEMINI_API_KEY
     type: echo
     params:
-      # ⬇️ REPLACE THIS WITH YOUR REAL KEY ⬇️
-      echo: "YOUR_REAL_GEMINI_API_KEY_HERE"
+      echo: "YOUR_GEMINI_API_KEY"
 ```
 
-Keep your API key secure and don't share it publicly. Add `match/params.yml` to your `.gitignore` to avoid committing it by accident if you use GitHub.
+Do not commit real API keys or other secrets.
 
+### 4. Restart Espanso
 
-## Snippet Guide
-The snippets are organized into logical files in the `match/` directory:
-
-| File                     | Description                        |
-| ------------------------ | ---------------------------------- |
-| **Utilities**     |    |
-| `base.yml`               | Global variables (clipboard, dates) and the work/personal state toggle.              |
-| `utils.yml`              | General utilities: path copying, currency conversion, dictionary lookup, etc.        |
-| `text.yml`               | Text manipulation: greetings, case conversion, etc.  |
-| `open.yml`               | Open projects, create files, convert URLs to Markdown.      |
-| `save_clipboard.yml`     | Clipboard management: save, organize, and retrieve clipboard history with timestamps. |
-| **Application Specific** |    |
-| `chrome.yml`             | Smart tab switching/opening for common sites (ChatGPT, GitHub, Slack, YouTube, etc.) |
-| `tabchange.yml`          | AppleScript for smart tab switching (used by `chrome.yml`).                          |
-| `python.yml`             | Python code snippets.              |
-| `md.yml`                 | Markdown shortcuts for links, code blocks, etc.      |
-| **LLM**        |    |
-| `llm.yml`                | Core LLM integration: translation, rephrasing, proofreading, etc.                |
-| `english_guideline.yml`  | Academic English writing checklist (used by `llm.yml`).                              |
-| `japanese_guideline.yml` | Academic Japanese writing checklist (used by `llm.yml`).                             |
-| **Configuration Management** |    |
-| `json_global_vars.yml`   | Dynamic global variable management from JSON files with forms for easy editing.       |
-| `trigger_search.yml`     | Search and browse triggers across all files with indexing capabilities.              |
-| **Symbols**       |    |
-| `math.yml`               | Math symbols, Greek letters, and simple calculations.|
-| `emoji.yml`              | Common emojis and special keyboard symbols.          |
-
-
-## 🌟 Featured Snippets
-Here are some examples of the most powerful snippets. They use the clipboard text as input:
-| Trigger        | Action      |
-| -------------- | ----------- |
-| `;jet`         | Translate clipboard content to English via Gemini. |
-| `;ejt`         | Translate clipboard content to Japanese via Gemini. |
-| `;gpt`         | Switch to the ChatGPT tab if open, otherwise open a new one. (`;gai` for Google Gemini, `;claude` for Claude.) |
-| `;cdgh`        | Shows a form with a list of your repos in `github/` and opens the selected one in VS Code.        |
-| `;case`        | Open a form to convert the clipboard text to `UPPERCASE`, `lowercase`, `camelCase`, `snake_case`, etc.    |
-| `;clippath`    | Copy the POSIX path of the selected file/folder in Finder.            |
-| `;state;focus` | Toggles the state between "WORK" and "PERSONAL" by updating `state/state_focus.txt`. You can use this to change the behavior of other snippets based on the current state.       |
-
-
-## 📋 Clipboard Management
-The `save_clipboard.yml` file provides persistent clipboard management with timestamps:
-
-| Trigger      | Action      |
-| ------------ | ----------- |
-| `;additem`   | Save current clipboard content to a persistent list with timestamp |
-| `;showlist`  | Display all saved clipboard items with timestamps |
-| `;delitem`   | Select and delete a specific item from the saved list |
-| `;dellist`   | Clear the entire clipboard history |
-
-All clipboard items are stored in `state/clipboard_list.md` with timestamps for easy reference and organization. It is recommended to add this file to your `.gitignore` to avoid committing sensitive information.
-
-## 🔍 Trigger Discovery & Management
-The repository includes powerful tools for managing and discovering your triggers:
-
-### Trigger Indexing
-Run the `scripts/generate_trigger_index.sh` script to create a comprehensive JSON index of all your triggers:
+After changing the configuration, restart Espanso:
 
 ```bash
-sh scripts/generate_trigger_index.sh
+espanso restart
 ```
 
-This script:
-- Scans all `.yml` files in your `match/` directory
-- Extracts triggers using multiple methods (simple triggers, trigger arrays, regex patterns)
-- Creates a JSON index with trigger counts per file
-- Provides statistics on your trigger collection
-- Outputs to `state/trigger_index.json`
+## Configuration Files
 
-### Trigger Search & Browse
-Use these triggers to explore your trigger collection:
+| File | Purpose |
+| --- | --- |
+| `config/default.yml` | Global Espanso options such as icon visibility, clipboard threshold, undo behavior, and search trigger. |
+| `config/backend_clipboard.yml` | Uses the clipboard injection backend for VS Code / Chrome matching classes. |
+| `config/disable.yml` | Excludes `match/global_vars_examples.yml` from normal loading. |
+| `config/global_vars_examples.json` | Example categorized JSON data used by the conversion script. |
 
-| Trigger           | Action      |
-| ----------------- | ----------- |
-| `;triggers`       | Browse triggers by file with a selection form |
-| `;findtrigger`    | Search for specific triggers across all files |
-| `;alltrigger`     | Show all available triggers in a numbered list |
-| `;triggerfiles`   | Overview of all files and their trigger counts |
-| `;updatetrigger`  | Run the trigger indexing script to refresh the index |
+## Match Guide
 
+| File | Purpose |
+| --- | --- |
+| `match/base.yml` | Shared clipboard/date variables, private imports, `;date`, `;now`, restart helper, and WORK/PERSONAL state toggle. |
+| `match/chrome.yml` | Browser/site shortcuts including Google, ChatGPT, Gemini, Claude, GitHub, Scholar, YouTube, and Chrome helpers. |
+| `match/emoji.yml` | macOS keyboard symbols, emoji shortcuts, and an emoji picker form. |
+| `match/english_guideline.yml` | Academic English checklist exposed as the `english_guideline` global variable. |
+| `match/example.yml` | Shell, IP lookup, UUID/password/hash, random, and other example snippets. |
+| `match/form.yml` | Espanso form examples and a TODO form. |
+| `match/global_vars_examples.yml` | Generated example globals/triggers from `config/global_vars_examples.json`; excluded by `config/disable.yml`. |
+| `match/japanese_guideline.yml` | Japanese writing guideline exposed as the `japanese_guideline` global variable. |
+| `match/json_global_vars.yml` | Read, browse, add, update, and delete values in `config/global_vars.json`. |
+| `match/llm.yml` | Gemini API integration for translation, rephrasing, and proofreading prompt helpers. |
+| `match/math.yml` | Greek letters, mathematical symbols, set/calculus/logic notation, and simple regex calculations. |
+| `match/md.yml` | Markdown/code-block and documentation shortcuts. |
+| `match/open.yml` | Open apps/projects, select a local repo, create a memo/URL shortcut, and convert a webpage URL to Markdown. |
+| `match/physics.yml` | Quantum notation such as ket, bra, inner product, and expectation value. |
+| `match/python.yml` | Python imports, environment commands, class/file/pickle templates, and plotting snippets. |
+| `match/save_clipboard.yml` | Persistent clipboard list stored in `ignore/clipboard_list.md`. |
+| `match/text.yml` | Greetings, text cleanup, counts, quoting, and case conversion. |
+| `match/touchID.yml` | Example `kctouch` integration for retrieving a Keychain secret after Touch ID authentication. |
+| `match/utils.yml` | macOS/Finder/system helpers, URL shortening, dictionary lookup, currency conversion, and personal workflow utilities. |
 
-## ⚙️ Configuration Management
+## Featured Triggers
 
-### Global Variables from JSON
-The `json_global_vars.yml` file allows you to manage global variables dynamically using a JSON configuration file:
+| Trigger | Action |
+| --- | --- |
+| `;date` | Insert the current date as `YYYY/MM/DD`. |
+| `;now` | Insert the current timestamp. |
+| `;state;focus` | Toggle `state/state_focus.txt` between `WORK` and `PERSONAL`. |
+| `;gpt` | Open ChatGPT. |
+| `;ggl` | Search Google for the current clipboard text. |
+| `;scholar` | Search Google Scholar for the current clipboard text. |
+| `;jet` | Translate clipboard content to English through Gemini. |
+| `;ejt` | Translate clipboard content to Japanese through Gemini. |
+| `;rephrase` | Ask Gemini for three scientific-writing rephrasings of clipboard text. |
+| `;case` | Convert clipboard text to upper/lower/Pascal/camel/title/kebab/snake case. |
+| `;chars` / `;words` | Count clipboard characters or words. |
+| `;cdgh` | Choose a directory under `{{GITHUB}}` and prepare to open it in VS Code. |
+| `;additem` | Append clipboard text to the private clipboard list. |
+| `;showlist` | Show all saved clipboard entries. |
+| `;delitem` | Select and remove one clipboard entry. |
+| `;var` | Pick any value from `config/global_vars.json`. |
+| `;setvar` | Add or update a JSON-backed variable. |
+| `;allemoji` | Open the emoji picker form. |
+| `;touchid` | Retrieve the configured Keychain secret with `kctouch`. |
+| `;ket` / `;bra` | Insert basic quantum-state notation. |
 
-1. **Setup**: Create a `config/global_vars.json` file (see `config/global_vars_examples.json` for structure)
-2. **Use the triggers**:
+## Clipboard List
 
-| Trigger      | Action      |
-| ------------ | ----------- |
-| `;var`       | Quick access to any variable with a selection form |
-| `;getvar`    | Get a variable value by category and key |
-| `;setvar`    | Add or update a variable in the JSON file |
-| `;showcat`   | Show all variables in a specific category |
-| `;allvar`    | Display overview of all categories and variables |
-| `;newcat`    | Create a new category in the JSON file |
-| `;delvar`    | Delete a specific variable |
+`match/save_clipboard.yml` stores clipboard entries in:
 
-### JSON to YAML Conversion
-Use the `scripts/json_to_yml.sh` script to convert your JSON configuration to YAML format:
+```text
+{{ESPANSO}}/ignore/clipboard_list.md
+```
+
+Available triggers:
+
+| Trigger | Action |
+| --- | --- |
+| `;additem` | Append sanitized clipboard text with a timestamp. |
+| `;showlist` | Display the saved list. |
+| `;delitem` | Pick a numbered entry and delete it. |
+| `;dellist` | Clear the list. |
+
+The `ignore/` directory is excluded by `.gitignore`, which helps keep clipboard contents and other local/private files out of the repository.
+
+## JSON-Backed Global Variables
+
+`match/json_global_vars.yml` expects:
+
+```text
+{{ESPANSO}}/config/global_vars.json
+```
+
+Use `config/global_vars_examples.json` as a structure reference. The management triggers are:
+
+| Trigger | Action |
+| --- | --- |
+| `;var` | Select any variable without choosing a category first. |
+| `;getvar` | Select a category and variable, then insert its value. |
+| `;showcat` | Show all values in a category. |
+| `;allvar` | Show all categories and values. |
+| `;setvar` | Add or update a value. |
+| `;newcat` | Add a category. |
+| `;delvar` | Delete a value. |
+
+> [!WARNING]
+> `config/global_vars.json` is **not** ignored by the current `.gitignore`. Do not put secrets there unless you also exclude the file from version control. API keys and other sensitive values are better kept under `ignore/`.
+
+## JSON → YAML Example Generator
+
+`scripts/json_to_yml.sh` is an example generator. It currently:
+
+1. Reads `config/global_vars_examples.json`.
+2. Generates Espanso `global_vars` and matching `;VARIABLE_NAME` triggers.
+3. Writes the result to `match/global_vars_examples.yml`.
+
+Run it with `ESPANSO` set to the configuration root:
 
 ```bash
-sh scripts/json_to_yml.sh
+export ESPANSO="/path/to/espanso/config-root"
+./scripts/json_to_yml.sh
 ```
 
-This script:
-- Reads from `config/global_vars.json`
-- Generates properly formatted YAML with global_vars and matches sections
-- Automatically creates triggers for each variable (`;VARIABLE_NAME` → `{{VARIABLE_NAME}}`)
-- Organizes output by categories with clear headers
+`config/disable.yml` excludes the generated example file from normal Espanso loading.
 
-Both `config/global_vars.json` and `match/global_vars.yml` should be added to your `.gitignore` to avoid committing sensitive information.
+## Touch ID / Keychain
 
+`match/touchID.yml` demonstrates retrieving a secret from the macOS Keychain with [`kctouch`](https://github.com/rgeraskin/kctouch).
 
-## 🛠️ Helper Scripts
+After installing `kctouch`, create a Keychain entry using service/account names of your choice, then update the placeholders in `match/touchID.yml`:
 
-### `scripts/generate_trigger_index.sh`
-- **Purpose**: Creates a searchable JSON index of all triggers across your configuration files
-- **Output**: `state/trigger_index.json` with trigger counts and file organization
-- **Features**: Supports simple triggers, trigger arrays, and regex patterns
-- **Usage**: Run manually or via `;updatetrigger` to refresh the index
-
-### `scripts/json_to_yml.sh`
-- **Purpose**: Converts JSON global variables to Espanso YAML format
-- **Input**: `config/global_vars.json`
-- **Output**: Properly formatted YAML for use as `match/global_vars.yml`
-- **Features**: Auto-generates both variable definitions and corresponding triggers
-
-
-## 📁 File Structure
-```
-📁 File Structure
-├── .gitignore                           # Git ignore file (excludes sensitive configs)
-├── README.md                            # Main documentation (this file)
-├── config/                              # Configuration files
-│   ├── default.yml                      # Espanso global configuration
-│   └── global_vars_examples.json        # Example JSON structure for variables
-├── match/                               # All snippet files
-│   ├── base.yml                         # Basic global variables and state toggle
-│   ├── example.yml                      # Example snippets (passwords, UUIDs, etc.)
-│   ├── form.yml                         # Form examples and TODO templates
-│   ├── emoji.yml                        # Common emojis and special keyboard symbols
-│   ├── math.yml                         # Math symbols, Greek letters, calculations
-│   ├── english_guideline.yml            # Academic English writing checklist
-│   ├── japanese_guideline.yml           # Academic Japanese writing checklist
-│   ├── chrome.yml                       # Browser automation and tab switching
-│   ├── tabchange.yml                    # AppleScript for Chrome tab switching (used by `chrome.yml`)
-│   ├── md.yml                           # Markdown shortcuts and formatting
-│   ├── physics.yml                      # Physics notation (quantum states, etc.)
-│   ├── python.yml                       # Python code snippets and templates
-│   ├── llm.yml                          # LLM integration (Gemini API)
-│   ├── open.yml                         # File/directory opening and project management
-│   ├── text.yml                         # Text manipulation and case conversion
-│   ├── json_global_vars.yml             # Dynamic variable management from JSON
-│   ├── trigger_search.yml               # Trigger discovery and search tools
-│   ├── save_clipboard.yml               # Clipboard management and history
-│   └── utils.yml                        # General utilities and tools
-├── state/                               # Runtime state and data storage
-│   ├── clipboard_list_examples.md       # Example saved clipboard items
-│   ├── state_focus.txt                  # Current work/personal state
-│   └── trigger_index_examples.json      # Example generated trigger index
-└── scripts/                             # Helper scripts
-    ├── generate_trigger_index.sh        # Script to index all triggers
-    └── json_to_yml.sh                   # Script to convert JSON to Espanso global variables (YAML)
+```bash
+kctouch add --service "YOUR_SERVICE_NAME" --account "YOUR_ACCOUNT_NAME"
 ```
 
-## 🎯 Getting Started Tips
+The `;touchid` trigger uses the corresponding `kctouch get` command and requires Touch ID authentication.
 
-1. **Start Small**: Begin with basic triggers like `;date`, `;gpt`, and `;case` to get familiar
-2. **Set Up Clipboard Management**: Use `;additem` to start building your clipboard history
-3. **Index Your Triggers**: Run `scripts/generate_trigger_index.sh` and use `;triggers` to explore available snippets
-4. **Configure Global Variables**: Create your `config/global_vars.json` for personalized snippets
-5. **Explore by Category**: Use `;triggerfiles` to see what's available in each file
-6. **Customize for Your Workflow**: Modify triggers and add your own based on your specific needs
+## Current Repository Structure
 
-After adding new snippets, run `;updatetrigger` to keep your trigger index up-to-date.
+```text
+.
+├── .gitignore
+├── README.md
+├── config/
+│   ├── backend_clipboard.yml
+│   ├── default.yml
+│   ├── disable.yml
+│   └── global_vars_examples.json
+├── match/
+│   ├── base.yml
+│   ├── chrome.yml
+│   ├── emoji.yml
+│   ├── english_guideline.yml
+│   ├── example.yml
+│   ├── form.yml
+│   ├── global_vars_examples.yml
+│   ├── japanese_guideline.yml
+│   ├── json_global_vars.yml
+│   ├── llm.yml
+│   ├── math.yml
+│   ├── md.yml
+│   ├── open.yml
+│   ├── physics.yml
+│   ├── python.yml
+│   ├── save_clipboard.yml
+│   ├── text.yml
+│   ├── touchID.yml
+│   └── utils.yml
+├── scripts/
+│   └── json_to_yml.sh
+└── state/
+    └── state_focus.txt
+```
+
+Local/private files under `ignore/` and development files under `dev/` are intentionally excluded from Git.
