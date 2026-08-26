@@ -16,22 +16,6 @@ matches:
         params:
           cmd: "open -a Terminal"
 
-  - trigger: ";cam"
-    replace: "{{output}}"
-    vars:
-      - name: output
-        type: shell
-        params:
-          cmd: "open -a Shottr; open -a 'Hand Mirror'"
-
-  - trigger: ";line"
-    replace: "{{output}}"
-    vars:
-      - name: output
-        type: shell
-        params:
-          cmd: "open -a LINE"
-
 # --- Open files, or directories ---
   - trigger: ";espanso"
     replace: "{{output}}\n"

@@ -11,7 +11,6 @@ Personal [Espanso](https://espanso.org/) configuration for macOS, with snippets 
 - **Text and writing helpers** — Japanese greetings, character/word counts, case conversion, quoting, Markdown snippets, and reusable forms.
 - **Browser and application shortcuts** — open Google, ChatGPT, Gemini, Claude, GitHub, Google Scholar, Terminal, and other apps/sites.
 - **Clipboard list** — append, display, delete, and clear saved clipboard entries in a private file under `ignore/`.
-- **JSON-backed variables** — browse and edit categorized values stored in `config/global_vars.json`.
 - **Scientific/coding snippets** — Python templates, math symbols, Greek letters, and quantum-state notation.
 - **macOS automation** — Finder path copying, desktop icon toggling, `hidutil`, AppleScript, and other shell-based utilities.
 - **Touch ID / Keychain example** — retrieve a secret through `kctouch` after Touch ID authentication.
@@ -41,9 +40,6 @@ Only install these if you use the corresponding snippets:
 - VS Code and the `code` CLI for project-opening snippets
 - `python3` for repository/text helpers
 - `uv` for the `;uvinit` Python trigger
-- Aerospace for the `;gap` utility
-- Google Chrome for the AppleScript-based new-tab trigger
-- Personal apps referenced in `match/open.yml`, such as Shottr, Hand Mirror, and LINE
 
 Some example snippets also rely on common Unix utilities that may differ between macOS and Linux. Check the shell command in the relevant match before using it on another platform.
 
@@ -75,7 +71,6 @@ imports:
 The repository `.gitignore` excludes the entire `ignore/` directory, so it is the intended place for machine-specific variables, private snippets, and local state.
 
 Create the imported files you use, or remove unused imports from `match/base.yml`. Several matches reference personal globals such as:
-
 - `ESPANSO` — path used by local state/config helpers
 - `GITHUB` — local GitHub/projects directory
 - `DOTFILES` — local dotfiles directory
@@ -117,23 +112,20 @@ espanso restart
 | --- | --- |
 | `config/default.yml` | Global Espanso options such as icon visibility, clipboard threshold, undo behavior, and search trigger. |
 | `config/backend_clipboard.yml` | Uses the clipboard injection backend for VS Code / Chrome matching classes. |
-| `config/disable.yml` | Excludes `match/global_vars_examples.yml` from normal loading. |
-| `config/global_vars_examples.json` | Example categorized JSON data used by the conversion script. |
+| `config/disable.yml` | Excludes `match/excluded.yml` from normal loading. |
 
 ## Match Guide
 
 | File | Purpose |
 | --- | --- |
 | `match/base.yml` | Shared clipboard/date variables, private imports, `;date`, `;now`, restart helper, and WORK/PERSONAL state toggle. |
+| `match/example.yml` | Shell, IP lookup, UUID/password/hash, random, and other example snippets. |
 | `match/chrome.yml` | Browser/site shortcuts including Google, ChatGPT, Gemini, Claude, GitHub, Scholar, YouTube, and Chrome helpers. |
 | `match/emoji.yml` | macOS keyboard symbols, emoji shortcuts, and an emoji picker form. |
-| `match/english_guideline.yml` | Academic English checklist exposed as the `english_guideline` global variable. |
-| `match/example.yml` | Shell, IP lookup, UUID/password/hash, random, and other example snippets. |
 | `match/form.yml` | Espanso form examples and a TODO form. |
-| `match/global_vars_examples.yml` | Generated example globals/triggers from `config/global_vars_examples.json`; excluded by `config/disable.yml`. |
-| `match/japanese_guideline.yml` | Japanese writing guideline exposed as the `japanese_guideline` global variable. |
-| `match/json_global_vars.yml` | Read, browse, add, update, and delete values in `config/global_vars.json`. |
 | `match/llm.yml` | Gemini API integration for translation, rephrasing, and proofreading prompt helpers. |
+| `match/english_guideline.yml` | Academic English checklist exposed as the `english_guideline` global variable. |
+| `match/japanese_guideline.yml` | Japanese writing guideline exposed as the `japanese_guideline` global variable. |
 | `match/math.yml` | Greek letters, mathematical symbols, set/calculus/logic notation, and simple regex calculations. |
 | `match/md.yml` | Markdown/code-block and documentation shortcuts. |
 | `match/open.yml` | Open apps/projects, select a local repo, create a memo/URL shortcut, and convert a webpage URL to Markdown. |
@@ -163,8 +155,6 @@ espanso restart
 | `;additem` | Append clipboard text to the private clipboard list. |
 | `;showlist` | Show all saved clipboard entries. |
 | `;delitem` | Select and remove one clipboard entry. |
-| `;var` | Pick any value from `config/global_vars.json`. |
-| `;setvar` | Add or update a JSON-backed variable. |
 | `;allemoji` | Open the emoji picker form. |
 | `;touchid` | Retrieve the configured Keychain secret with `kctouch`. |
 | `;ket` / `;bra` | Insert basic quantum-state notation. |
@@ -188,36 +178,15 @@ Available triggers:
 
 The `ignore/` directory is excluded by `.gitignore`, which helps keep clipboard contents and other local/private files out of the repository.
 
-## JSON-Backed Global Variables
-
-`match/json_global_vars.yml` expects:
-
-```text
-{{ESPANSO}}/config/global_vars.json
-```
-
-Use `config/global_vars_examples.json` as a structure reference. The management triggers are:
-
-| Trigger | Action |
-| --- | --- |
-| `;var` | Select any variable without choosing a category first. |
-| `;getvar` | Select a category and variable, then insert its value. |
-| `;showcat` | Show all values in a category. |
-| `;allvar` | Show all categories and values. |
-| `;setvar` | Add or update a value. |
-| `;newcat` | Add a category. |
-| `;delvar` | Delete a value. |
-
-> [!WARNING]
-> `config/global_vars.json` is **not** ignored by the current `.gitignore`. Do not put secrets there unless you also exclude the file from version control. API keys and other sensitive values are better kept under `ignore/`.
 
 ## JSON → YAML Example Generator
 
-`scripts/json_to_yml.sh` is an example generator. It currently:
+`scripts/json_to_yml.sh` is a helper script that converts a JSON file into an Espanso YAML configuration with global variables and triggers.
 
-1. Reads `config/global_vars_examples.json`.
+It currently:
+1. Reads `ignore/global_vars.json`.
 2. Generates Espanso `global_vars` and matching `;VARIABLE_NAME` triggers.
-3. Writes the result to `match/global_vars_examples.yml`.
+3. Writes the result to `ignore/global_vars.yml`.
 
 Run it with `ESPANSO` set to the configuration root:
 
@@ -226,7 +195,105 @@ export ESPANSO="/path/to/espanso/config-root"
 ./scripts/json_to_yml.sh
 ```
 
-`config/disable.yml` excludes the generated example file from normal Espanso loading.
+### Example JSON and Generated YAML
+
+```json
+{
+  "api_keys": {
+    "YOUR_GEMINI_API_KEY": "your_gemini_api_key_here"
+  },
+  "urls": {
+    "blog_url": "https://yourblog.com",
+    "portfolio": "https://yourportfolio.com"
+  },
+  "paths": {
+    "projects": "~/path/to/projects",
+    "backup": "~/path/to/backups"
+  },
+  "personal": {
+    "your_name": "Your Name",
+    "your_mail": "your.email@example.com",
+    "your_phone": "+1-234-567-8900"
+  }
+}
+```
+
+```yaml
+# ========================================
+# Auto-generated from global_vars_examples.json
+# Generated on: Sun Feb 22 15:21:37 JST 2026
+# ========================================
+
+global_vars:
+  # --- API_KEYS ---
+  - name: "YOUR_GEMINI_API_KEY"
+    type: echo
+    params:
+      echo: "your_gemini_api_key_here"
+
+  # --- URLS ---
+  - name: "blog_url"
+    type: echo
+    params:
+      echo: "https://yourblog.com"
+  - name: "portfolio"
+    type: echo
+    params:
+      echo: "https://yourportfolio.com"
+
+  # --- PATHS ---
+  - name: "projects"
+    type: echo
+    params:
+      echo: "~/path/to/projects"
+  - name: "backup"
+    type: echo
+    params:
+      echo: "~/path/to/backups"
+
+  # --- PERSONAL ---
+  - name: "your_name"
+    type: echo
+    params:
+      echo: "Your Name"
+  - name: "your_mail"
+    type: echo
+    params:
+      echo: "your.email@example.com"
+  - name: "your_phone"
+    type: echo
+    params:
+      echo: "+1-234-567-8900"
+
+
+matches:
+# --- API_KEYS ---
+  - trigger: ";YOUR_GEMINI_API_KEY"
+    replace: "{{YOUR_GEMINI_API_KEY}}"
+
+# --- URLS ---
+  - trigger: ";blog_url"
+    replace: "{{blog_url}}"
+  - trigger: ";portfolio"
+    replace: "{{portfolio}}"
+
+# --- PATHS ---
+  - trigger: ";projects"
+    replace: "{{projects}}"
+  - trigger: ";backup"
+    replace: "{{backup}}"
+
+# --- PERSONAL ---
+  - trigger: ";your_name"
+    replace: "{{your_name}}"
+  - trigger: ";your_mail"
+    replace: "{{your_mail}}"
+  - trigger: ";your_phone"
+    replace: "{{your_phone}}"
+
+
+```
+
 
 ## Touch ID / Keychain
 
@@ -250,7 +317,9 @@ The `;touchid` trigger uses the corresponding `kctouch get` command and requires
 │   ├── backend_clipboard.yml
 │   ├── default.yml
 │   ├── disable.yml
-│   └── global_vars_examples.json
+├── ignore/
+│   ├── global_vars.json
+│   └── global_vars.yml
 ├── match/
 │   ├── base.yml
 │   ├── chrome.yml
@@ -258,9 +327,7 @@ The `;touchid` trigger uses the corresponding `kctouch get` command and requires
 │   ├── english_guideline.yml
 │   ├── example.yml
 │   ├── form.yml
-│   ├── global_vars_examples.yml
 │   ├── japanese_guideline.yml
-│   ├── json_global_vars.yml
 │   ├── llm.yml
 │   ├── math.yml
 │   ├── md.yml
