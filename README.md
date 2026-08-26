@@ -220,7 +220,7 @@ export ESPANSO="/path/to/espanso/config-root"
 
 ```yaml
 # ========================================
-# Auto-generated from global_vars_examples.json
+# Auto-generated from global_vars.json
 # Generated on: Sun Feb 22 15:21:37 JST 2026
 # ========================================
 
@@ -290,8 +290,6 @@ matches:
     replace: "{{your_mail}}"
   - trigger: ";your_phone"
     replace: "{{your_phone}}"
-
-
 ```
 
 
