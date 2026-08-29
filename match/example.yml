@@ -90,9 +90,17 @@ matches:
     replace: "{{output}}"
     vars:
       - name: output
-        type: shell
+        type: script
         params:
-          cmd: "echo {{clipboard}} | shasum -a 256 | awk '{print $1}'"
+          args:
+            - python3
+            - -c
+            - |
+                import hashlib
+                import sys
+                value = sys.argv[1].encode("utf-8")
+                print(hashlib.sha256(value).hexdigest())
+            - "{{clipboard}}"
 
 # --- Random excuse generator ---
   - trigger: ";excuse"
