@@ -1,4 +1,14 @@
 matches:
+
+# --- Echo ---
+  - trigger: ";echo"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: echo
+        params:
+          echo: "Hello, World!"
+
 # --- Shell Execution ---
   - trigger: ";shell"
     replace: "{{output}}"
@@ -6,16 +16,36 @@ matches:
       - name: output
         type: shell
         params:
-          cmd: "echo 'Hello from your shell'"
+          cmd: "echo 'This is a shell command output.'"
 
-# ——— Execute arbitrary shell command ———
-  # - regex: ";\\((?P<command>.*)\\)"
-  #   replace: "{{result}}"
-  #   vars:
-  #     - name: result
-  #       type: shell
-  #       params:
-  #         cmd: "eval $ESPANSO_COMMAND"
+# --- Script Execution ---
+# Since each element of `args` becomes an individual argument, even values containing spaces or quotes are not re-interpreted as a shell command string. On the other hand, `|`, `>`, `&&`, `;`, `~` expansion, `$VAR` expansion, etc., cannot be used.
+  - trigger: ";example"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: script
+        params:
+          args:
+            - open
+            - -a
+            - "Google Chrome"
+            - "https://example.com/"
+
+  - trigger: ";python"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: script
+        params:
+          args:
+            - python3
+            - -c
+            - |
+                import sys
+                value = sys.argv[1].encode("utf-8")
+                print("This is a script output. You can use Python to process the input, such as clipboard content or other variables. The clipboard content: " + value.decode("utf-8"))
+            - "{{clipboard}}"
 
 # ——— Get IP Address ———
   - trigger: ";myip"
