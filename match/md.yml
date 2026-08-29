@@ -12,7 +12,7 @@ matches:
     replace: |
             :::{admonition} {bdg-primary-line}`P$|$`
             :class:
-            
+
             :::
 
   - trigger: ";break"

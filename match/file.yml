@@ -1,0 +1,22 @@
+matches:
+# --- File Creation ---
+  - trigger: ";memo"
+    replace: "{{output}}\n"
+    vars:
+      - name: path
+        type: echo
+        params:
+          echo: "~/Desktop/temp/memo.md"
+      - name: output
+        type: shell
+        params:
+          cmd: "cd ~/Desktop/temp/; touch memo.md; {{open_with_vscode}}"
+
+# --- Create .url file from clipboard URL ---
+  - regex: ";url(?P<name>.*);" # input: ;urlname; → output: name.url
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "cd ~/Desktop; echo '[InternetShortcut]\nURL={{clipboard}}' > {{name}}.url"

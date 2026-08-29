@@ -98,13 +98,25 @@ matches:
           cmd: "osascript -e 'say \"{{clipboard}}\"'"
 
 # ——— Shorten Clipboard URL ———
+# Use shell extension to avoid that symbols like &,# are interpreted by shell, which would cause an error.
   - trigger: ";short"
     replace: "{{short_url}}"
     vars:
       - name: short_url
-        type: shell
+        type: script
         params:
-          cmd: "curl -s 'https://tinyurl.com/api-create.php?url={{clipboard}}'"
+          args:
+            - curl
+            - --fail
+            - --silent
+            - --show-error
+            - --location
+            - --max-time
+            - "15"
+            - --get
+            - --data-urlencode
+            - "url={{clipboard}}"
+            - "https://tinyurl.com/api-create.php"
 
 # -- definition lookup ---
   - trigger: ";definition"
