@@ -2,7 +2,7 @@ global_vars:
   - name: "open_with_vscode"
     type: echo
     params:
-      echo: "if [[ -d {{path}} ]]; then open -a Terminal; echo 'code {{path}}'; fi"
+      echo: "if [[ -e {{path}} ]]; then open -a Ghostty; echo 'code {{path}}'; fi"
           # following commands deletes some letters from the file when you open it
           # cmd: "code {{path}}"
 
@@ -14,7 +14,7 @@ matches:
       - name: output
         type: shell
         params:
-          cmd: "open -a Terminal"
+          cmd: "open -a Ghostty"
 
 # --- Open files, or directories ---
   - trigger: ";espanso"
@@ -53,19 +53,27 @@ matches:
             repo_name:
               type: choice
               values: "{{available}}"
+      - name: path
+        type: echo
+        params:
+          echo: "{{GITHUB}}/{{form.repo_name}}"
       - name: output
         type: shell
         params:
-          cmd: "open -a Terminal; echo 'code {{GITHUB}}/{{form.repo_name}}'"
+          cmd: "{{open_with_vscode}}"
 
 # --- File Creation ---
   - trigger: ";memo"
     replace: "{{output}}\n"
     vars:
+      - name: path
+        type: echo
+        params:
+          echo: "~/Desktop/temp/memo.md"
       - name: output
         type: shell
         params:
-          cmd: "cd ~/Desktop/temp/; touch memo.md; open -a Terminal; echo 'code ~/Desktop/temp/memo.md'"
+          cmd: "cd ~/Desktop/temp/; touch memo.md; {{open_with_vscode}}"
 
 # --- Create .url file from clipboard URL ---
   - regex: ";url(?P<name>.*);" # input: ;urlname; → output: name.url
