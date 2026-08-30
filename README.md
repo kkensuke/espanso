@@ -123,21 +123,21 @@ espanso restart
 | File | Purpose |
 | --- | --- |
 | `match/base.yml` | Shared clipboard/date variables, private imports, `;date`, `;now`, the Ghostty restart helper, and the WORK/PERSONAL state toggle. |
-| `match/chrome.yml` | Browser/site shortcuts including Google, ChatGPT, Gemini, Claude, GitHub, Scholar, YouTube, and Chrome helpers. |
-| `match/emoji.yml` | macOS keyboard symbols, emoji shortcuts, and an emoji picker form. |
-| `match/english_guideline.yml` | Academic English checklist exposed as the `english_guideline` global variable. |
-| `match/file.yml` | Create a desktop memo or a Windows-compatible `.url` shortcut from the clipboard. |
-| `match/form.yml` | Espanso form examples and a TODO form. |
-| `match/japanese_guideline.yml` | Japanese writing guideline exposed as the `japanese_guideline` global variable. |
-| `match/llm.yml` | Gemini API integration for translation, rephrasing, and proofreading prompt helpers. |
-| `match/math.yml` | Greek letters, mathematical symbols, set/calculus/logic notation, and simple regex calculations. |
-| `match/md.yml` | Markdown/code-block and documentation shortcuts. |
-| `match/open.yml` | Open Ghostty, the Espanso configuration, a quantum-computing directory, or a selected local GitHub repository. |
-| `match/physics.yml` | Quantum notation such as ket, bra, inner product, and expectation value. |
-| `match/python.yml` | Python imports, environment commands, class/file/pickle templates, and plotting snippets. |
-| `match/save_clipboard.yml` | Persistent clipboard list stored in `ignore/clipboard_list.md`. |
 | `match/shell.yml` | Echo/shell/script examples plus IP, dice, UUID, password, SHA-256, and random-excuse helpers. |
+| `match/emoji.yml` | macOS keyboard symbols, emoji shortcuts, and an emoji picker form. |
+| `match/chrome.yml` | Browser/site shortcuts including Google, ChatGPT, Gemini, Claude, GitHub, Scholar, YouTube, and Chrome helpers. |
+| `match/form.yml` | Espanso form examples and a TODO form. |
+| `match/llm.yml` | Gemini API integration for translation, rephrasing, and proofreading prompt helpers. |
+| `match/english_guideline.yml` | Academic English checklist exposed as the `english_guideline` global variable. |
+| `match/japanese_guideline.yml` | Japanese writing guideline exposed as the `japanese_guideline` global variable. |
+| `match/math.yml` | Greek letters, mathematical symbols, set/calculus/logic notation, and simple regex calculations. |
+| `match/physics.yml` | Quantum notation such as ket, bra, inner product, and expectation value. |
+| `match/md.yml` | Markdown/code-block and documentation shortcuts. |
+| `match/python.yml` | Python imports, environment commands, class/file/pickle templates, and plotting snippets. |
 | `match/text.yml` | Greetings, text cleanup, counts, quoting, and case conversion. |
+| `match/open.yml` | Open Ghostty, the Espanso configuration, a quantum-computing directory, or a selected local GitHub repository. |
+| `match/file.yml` | Create a desktop memo or a Windows-compatible `.url` shortcut from the clipboard. |
+| `match/save_clipboard.yml` | Persistent clipboard list stored in `ignore/clipboard_list.md`. |
 | `match/touchID.yml` | Example `kctouch` integration for retrieving a Keychain secret after Touch ID authentication. |
 | `match/utils.yml` | macOS/Finder/system helpers, URL shortening, dictionary lookup, currency conversion, and personal workflow utilities. |
 
@@ -330,21 +330,21 @@ The `;touchid` trigger uses the corresponding `kctouch get` command and requires
 │   └── global_vars.yml
 ├── match/
 │   ├── base.yml
-│   ├── chrome.yml
-│   ├── emoji.yml
-│   ├── english_guideline.yml
-│   ├── file.yml
-│   ├── form.yml
-│   ├── japanese_guideline.yml
-│   ├── llm.yml
-│   ├── math.yml
-│   ├── md.yml
-│   ├── open.yml
-│   ├── physics.yml
-│   ├── python.yml
-│   ├── save_clipboard.yml
 │   ├── shell.yml
+│   ├── emoji.yml
+│   ├── form.yml
+│   ├── chrome.yml
+│   ├── llm.yml
+│   ├── english_guideline.yml
+│   ├── japanese_guideline.yml
 │   ├── text.yml
+│   ├── math.yml
+│   ├── physics.yml
+│   ├── md.yml
+│   ├── python.yml
+│   ├── open.yml
+│   ├── file.yml
+│   ├── save_clipboard.yml
 │   ├── touchID.yml
 │   └── utils.yml
 ├── scripts/
