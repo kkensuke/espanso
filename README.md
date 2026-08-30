@@ -9,7 +9,7 @@ Personal [Espanso](https://espanso.org/) configuration for macOS, with snippets 
 
 - **LLM workflows with Google Gemini** — translate clipboard text, rephrase scientific writing, and build proofreading prompts.
 - **Text and writing helpers** — Japanese greetings, character/word counts, case conversion, quoting, Markdown snippets, and reusable forms.
-- **Browser and application shortcuts** — open Google, ChatGPT, Gemini, Claude, GitHub, Google Scholar, Terminal, and other apps/sites.
+- **Browser and application shortcuts** — open Google, ChatGPT, Gemini, Claude, GitHub, Google Scholar, Ghostty, and other apps/sites.
 - **Clipboard list** — append, display, delete, and clear saved clipboard entries in a private file under `ignore/`.
 - **Scientific/coding snippets** — Python templates, math symbols, Greek letters, and quantum-state notation.
 - **macOS automation** — Finder path copying, desktop icon toggling, `hidutil`, AppleScript, and other shell-based utilities.
@@ -37,11 +37,15 @@ Many snippets use macOS commands such as `open`, `osascript`, `pbcopy`, `pbpaste
 Only install these if you use the corresponding snippets:
 
 - `kctouch` for `match/touchID.yml`
+- Ghostty for `;er`, `;tml`, and the VS Code/project-opening helpers
 - VS Code and the `code` CLI for project-opening snippets
-- `python3` for repository/text helpers
+- Google Chrome for `;tab` and the `;example` script example
+- `python3` for `;python`, `;hash`, and repository/text helpers
 - `uv` for the `;uvinit` Python trigger
+- Aerospace for the `;gap` utility
+- GNU `shuf` for `;dice` (adapt the command or make `shuf` available on macOS)
 
-Some example snippets also rely on common Unix utilities that may differ between macOS and Linux. Check the shell command in the relevant match before using it on another platform.
+Some snippets also rely on common Unix utilities that may differ between macOS and Linux. Check the shell command in the relevant match before using it on another platform.
 
 ## Installation
 
@@ -112,27 +116,28 @@ espanso restart
 | --- | --- |
 | `config/default.yml` | Global Espanso options such as icon visibility, clipboard threshold, undo behavior, and search trigger. |
 | `config/backend_clipboard.yml` | Uses the clipboard injection backend for VS Code / Chrome matching classes. |
-| `config/disable.yml` | Excludes `match/excluded.yml` from normal loading. |
+| `config/disable.yml` | Excludes `match/excluded.yml` from normal loading when that local file exists. |
 
 ## Match Guide
 
 | File | Purpose |
 | --- | --- |
-| `match/base.yml` | Shared clipboard/date variables, private imports, `;date`, `;now`, restart helper, and WORK/PERSONAL state toggle. |
-| `match/example.yml` | Shell, IP lookup, UUID/password/hash, random, and other example snippets. |
-| `match/emoji.yml` | macOS keyboard symbols, emoji shortcuts, and an emoji picker form. |
+| `match/base.yml` | Shared clipboard/date variables, private imports, `;date`, `;now`, the Ghostty restart helper, and the WORK/PERSONAL state toggle. |
 | `match/chrome.yml` | Browser/site shortcuts including Google, ChatGPT, Gemini, Claude, GitHub, Scholar, YouTube, and Chrome helpers. |
-| `match/form.yml` | Espanso form examples and a TODO form. |
-| `match/llm.yml` | Gemini API integration for translation, rephrasing, and proofreading prompt helpers. |
+| `match/emoji.yml` | macOS keyboard symbols, emoji shortcuts, and an emoji picker form. |
 | `match/english_guideline.yml` | Academic English checklist exposed as the `english_guideline` global variable. |
+| `match/file.yml` | Create a desktop memo or a Windows-compatible `.url` shortcut from the clipboard. |
+| `match/form.yml` | Espanso form examples and a TODO form. |
 | `match/japanese_guideline.yml` | Japanese writing guideline exposed as the `japanese_guideline` global variable. |
+| `match/llm.yml` | Gemini API integration for translation, rephrasing, and proofreading prompt helpers. |
 | `match/math.yml` | Greek letters, mathematical symbols, set/calculus/logic notation, and simple regex calculations. |
-| `match/physics.yml` | Quantum notation such as ket, bra, inner product, and expectation value. |
 | `match/md.yml` | Markdown/code-block and documentation shortcuts. |
+| `match/open.yml` | Open Ghostty, the Espanso configuration, a quantum-computing directory, or a selected local GitHub repository. |
+| `match/physics.yml` | Quantum notation such as ket, bra, inner product, and expectation value. |
 | `match/python.yml` | Python imports, environment commands, class/file/pickle templates, and plotting snippets. |
-| `match/text.yml` | Greetings, text cleanup, counts, quoting, and case conversion. |
-| `match/open.yml` | Open apps/projects, select a local repo, create a memo/URL shortcut, and convert a webpage URL to Markdown. |
 | `match/save_clipboard.yml` | Persistent clipboard list stored in `ignore/clipboard_list.md`. |
+| `match/shell.yml` | Echo/shell/script examples plus IP, dice, UUID, password, SHA-256, and random-excuse helpers. |
+| `match/text.yml` | Greetings, text cleanup, counts, quoting, and case conversion. |
 | `match/touchID.yml` | Example `kctouch` integration for retrieving a Keychain secret after Touch ID authentication. |
 | `match/utils.yml` | macOS/Finder/system helpers, URL shortening, dictionary lookup, currency conversion, and personal workflow utilities. |
 
@@ -142,7 +147,9 @@ espanso restart
 | --- | --- |
 | `;date` | Insert the current date as `YYYY/MM/DD`. |
 | `;now` | Insert the current timestamp. |
+| `;er` | Open Ghostty and prepare an `espanso restart` command. |
 | `;state;focus` | Toggle `state/state_focus.txt` between `WORK` and `PERSONAL`. |
+| `;tml` | Open Ghostty. |
 | `;gpt` | Open ChatGPT. |
 | `;ggl` | Search Google for the current clipboard text. |
 | `;scholar` | Search Google Scholar for the current clipboard text. |
@@ -152,6 +159,9 @@ espanso restart
 | `;case` | Convert clipboard text to upper/lower/Pascal/camel/title/kebab/snake case. |
 | `;chars` / `;words` | Count clipboard characters or words. |
 | `;cdgh` | Choose a directory under `{{GITHUB}}` and prepare to open it in VS Code. |
+| `;memo` | Create `~/Desktop/temp/memo.md` and prepare to open it in VS Code. |
+| `;urlNAME;` | Create `~/Desktop/NAME.url` from the clipboard URL. |
+| `;hash` | Insert the SHA-256 digest of the clipboard text using Python. |
 | `;additem` | Append clipboard text to the private clipboard list. |
 | `;showlist` | Show all saved clipboard entries. |
 | `;delitem` | Select and remove one clipboard entry. |
@@ -320,20 +330,21 @@ The `;touchid` trigger uses the corresponding `kctouch get` command and requires
 │   └── global_vars.yml
 ├── match/
 │   ├── base.yml
-│   ├── example.yml
-│   ├── emoji.yml
 │   ├── chrome.yml
-│   ├── form.yml
-│   ├── llm.yml
+│   ├── emoji.yml
 │   ├── english_guideline.yml
+│   ├── file.yml
+│   ├── form.yml
 │   ├── japanese_guideline.yml
-│   ├── text.yml
+│   ├── llm.yml
 │   ├── math.yml
-│   ├── physics.yml
 │   ├── md.yml
-│   ├── python.yml
 │   ├── open.yml
+│   ├── physics.yml
+│   ├── python.yml
 │   ├── save_clipboard.yml
+│   ├── shell.yml
+│   ├── text.yml
 │   ├── touchID.yml
 │   └── utils.yml
 ├── scripts/
