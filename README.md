@@ -136,7 +136,7 @@ espanso restart
 | `match/python.yml` | Python imports, environment commands, class/file/pickle templates, and plotting snippets. |
 | `match/text.yml` | Greetings, text cleanup, counts, quoting, and case conversion. |
 | `match/open.yml` | Open Ghostty, the Espanso configuration, a quantum-computing directory, or a selected local GitHub repository. |
-| `match/file.yml` | Create a desktop memo or a Windows-compatible `.url` shortcut from the clipboard. |
+| `match/newfile.yml` | Create a desktop memo or a Windows-compatible `.url` shortcut from the clipboard. |
 | `match/save_clipboard.yml` | Persistent clipboard list stored in `ignore/clipboard_list.md`. |
 | `match/touchID.yml` | Example `kctouch` integration for retrieving a Keychain secret after Touch ID authentication. |
 | `match/utils.yml` | macOS/Finder/system helpers, URL shortening, dictionary lookup, currency conversion, and personal workflow utilities. |
@@ -343,7 +343,7 @@ The `;touchid` trigger uses the corresponding `kctouch get` command and requires
 │   ├── md.yml
 │   ├── python.yml
 │   ├── open.yml
-│   ├── file.yml
+│   ├── newfile.yml
 │   ├── save_clipboard.yml
 │   ├── touchID.yml
 │   └── utils.yml
