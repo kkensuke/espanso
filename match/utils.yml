@@ -2,45 +2,6 @@ matches:
   - trigger: ";local"
     replace: "localhost:3000/"
 
-# --- Hide/show all desktop icons ---
-  - trigger: ";dhide"
-    replace: "{{output}}"
-    vars:
-      - name: output
-        type: shell
-        params:
-          cmd: "defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
-
-  - trigger: ";dshow"
-    replace: "{{output}}"
-    vars:
-      - name: output
-        type: shell
-        params:
-          cmd: "defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-
-# --- Copy Finder Path ---
-  - trigger: ";path"
-    replace: "{{output}}"
-    vars:
-      - name: finder_path
-        type: shell
-        params:
-          cmd: "osascript -e 'tell application \"Finder\" to get the POSIX path of (selection as alias)'"
-      - name: output
-        type: shell
-        params:
-          cmd: "echo '{{finder_path}}' | sed 's/ /\\\\ /g' | tr -d '\n' | pbcopy; pbpaste"
-
-# --- Make repo summary ---
-  - trigger: ";repotext"
-    replace: "{{output}}"
-    vars:
-      - name: output
-        type: shell
-        params:
-          cmd: "python3 {{GITHUB}}/tools/repo_to_text/repo_to_text_CJK.py -o ~/Desktop/output.txt {{clipboard}}"
-
 # --- Invert PDF in VScode ---
   - trigger: ";invert"
     replace: "{{output}}"
@@ -59,34 +20,6 @@ matches:
             then sed -i '' 's/\"latex-workshop.view.pdf.invert\": 0/\"latex-workshop.view.pdf.invert\": 1/' {{path}};
             else echo "No matching pattern found.";
             fi
-
-# --- Toggle Aerospace Right Gap ---
-  - trigger: ";gap"
-    replace: "{{output}}"
-    vars:
-      - name: path
-        type: echo
-        params:
-          echo: "{{DOTFILES}}/home/.aerospace.toml"
-      - name: output
-        type: shell
-        params:
-          cmd: |
-            if grep -q "outer.right =      130" {{path}};
-            then sed -i '' 's/outer.right =      130/outer.right =      0/' {{path}} && aerospace reload-config;
-            elif grep -q "outer.right =      0" {{path}};
-            then sed -i '' 's/outer.right =      0/outer.right =      130/' {{path}} && aerospace reload-config;
-            else echo "No matching pattern found.";
-            fi
-
-# --- Capslock no delay ---
-  - trigger: ";nodl"
-    replace: "{{output}}"
-    vars:
-      - name: output
-        type: shell
-        params:
-          cmd: "hidutil property --set '{\"CapsLockDelayOverride\":10}' > /dev/null && echo 'Done!'"
 
 # --- Speak Clipboard Content ---
   - trigger: ";speak"
@@ -117,17 +50,6 @@ matches:
             - --data-urlencode
             - "url={{clipboard}}"
             - "https://tinyurl.com/api-create.php"
-
-# -- definition lookup ---
-  - trigger: ";definition"
-    replace: "{{definition}}"
-    vars:
-      - name: definition
-        type: shell
-        params:
-          cmd: >
-            curl -s "https://api.dictionaryapi.dev/api/v2/entries/en/{{clipboard}}" |
-            jq -r '.[0] | "\(.word): \n" + (.meanings[0].definitions | map("- " + .definition) | join("\n"))'
 
 # --- Currency Conversion ---
   - trigger: ";ccv"
